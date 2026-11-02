@@ -1,0 +1,3703 @@
+{
+  "generadoEn": "2026-10-19T18:39:21.872Z",
+  "gubernatura": {
+    "filas": 6951,
+    "formatoFecha": {
+      "dominante": "d/m/yyyy",
+      "muestras": [
+        "14/2/2025",
+        "14/2/2025",
+        "14/2/2025",
+        "14/2/2025",
+        "2/1/2026"
+      ]
+    },
+    "formatoPorcentaje": {
+      "dominante": "NN.N%",
+      "muestras": [
+        "23.8%",
+        "8.6%",
+        "3.6%",
+        "17.3%",
+        "8.4%"
+      ]
+    }
+  },
+  "alcaldes": {
+    "filas": 1248,
+    "formatoFecha": {
+      "dominante": "d/m/yyyy",
+      "muestras": [
+        "23/1/2026",
+        "23/1/2026",
+        "23/1/2026",
+        "23/1/2026",
+        "23/1/2026"
+      ]
+    },
+    "formatoPorcentaje": {
+      "dominante": "NN.NN%",
+      "muestras": [
+        "90.00%",
+        "84.00%",
+        "82.80%",
+        "80.10%",
+        "80.10%"
+      ]
+    }
+  },
+  "encuestadoras": [
+    {
+      "valor": "Gobernarte",
+      "corto": "Gobernarte",
+      "conteo": 2000
+    },
+    {
+      "valor": "Massive Caller",
+      "corto": "Massive Caller",
+      "conteo": 1092
+    },
+    {
+      "valor": "Cripeso",
+      "corto": "Cripeso",
+      "conteo": 811
+    },
+    {
+      "valor": "Statistical Research \nCorporation",
+      "corto": "SRC",
+      "conteo": 725
+    },
+    {
+      "valor": "Algoritmo",
+      "corto": "Algoritmo",
+      "conteo": 686
+    },
+    {
+      "valor": "Rubrum",
+      "corto": "Rubrum",
+      "conteo": 559
+    },
+    {
+      "valor": "C&E",
+      "corto": "C&E",
+      "conteo": 549
+    },
+    {
+      "valor": "La Encuesta Mx",
+      "corto": "La Encuesta MX",
+      "conteo": 543
+    },
+    {
+      "valor": "Demoscopia Digital",
+      "corto": "Demoscopia Digital",
+      "conteo": 332
+    },
+    {
+      "valor": "Metametrics",
+      "corto": "Metametrics",
+      "conteo": 283
+    },
+    {
+      "valor": "Encuesta de Encuestas",
+      "corto": "Encuesta de Encuestas",
+      "conteo": 200
+    },
+    {
+      "valor": "Cipreso",
+      "corto": "Cipreso",
+      "conteo": 68
+    },
+    {
+      "valor": "MetaMetrics",
+      "corto": "MetaMetrics",
+      "conteo": 66
+    },
+    {
+      "valor": "Poligrama",
+      "corto": "Poligrama",
+      "conteo": 40
+    },
+    {
+      "valor": "Statistical Research Corporation",
+      "corto": "SRC",
+      "conteo": 39
+    },
+    {
+      "valor": "Demoscopia",
+      "corto": "Demoscopia",
+      "conteo": 36
+    },
+    {
+      "valor": "CE Research",
+      "corto": "CE Research",
+      "conteo": 27
+    },
+    {
+      "valor": "Territorial",
+      "corto": "Territorial",
+      "conteo": 25
+    },
+    {
+      "valor": "LaEncuesta.Mx",
+      "corto": "LaEncuesta.Mx",
+      "conteo": 22
+    },
+    {
+      "valor": "Arias Consultores",
+      "corto": "Arias Consultores",
+      "conteo": 19
+    },
+    {
+      "valor": "Publimetro",
+      "corto": "Publimetro",
+      "conteo": 14
+    },
+    {
+      "valor": "Reforma",
+      "corto": "Reforma",
+      "conteo": 12
+    },
+    {
+      "valor": "El Norte",
+      "corto": "El Norte",
+      "conteo": 8
+    },
+    {
+      "valor": "Populus",
+      "corto": "Populus",
+      "conteo": 6
+    },
+    {
+      "valor": "Aimsa",
+      "corto": "Aimsa",
+      "conteo": 4
+    },
+    {
+      "valor": "Pentagrama",
+      "corto": "Pentagrama",
+      "conteo": 4
+    }
+  ],
+  "entidades": [
+    {
+      "valor": "Nuevo León",
+      "conteo": 1218
+    },
+    {
+      "valor": "Baja California",
+      "conteo": 524
+    },
+    {
+      "valor": "Nayarit",
+      "conteo": 478
+    },
+    {
+      "valor": "Querétaro",
+      "conteo": 396
+    },
+    {
+      "valor": "Zacatecas",
+      "conteo": 379
+    },
+    {
+      "valor": "Colima",
+      "conteo": 379
+    },
+    {
+      "valor": "Baja California Sur",
+      "conteo": 359
+    },
+    {
+      "valor": "Campeche",
+      "conteo": 348
+    },
+    {
+      "valor": "Michoacán",
+      "conteo": 343
+    },
+    {
+      "valor": "Guerrero",
+      "conteo": 343
+    },
+    {
+      "valor": "Chihuahua",
+      "conteo": 320
+    },
+    {
+      "valor": "Quintana Roo",
+      "conteo": 314
+    },
+    {
+      "valor": "Aguascalientes",
+      "conteo": 311
+    },
+    {
+      "valor": "Tlaxcala",
+      "conteo": 307
+    },
+    {
+      "valor": "Sonora",
+      "conteo": 306
+    },
+    {
+      "valor": "San Luis Potosí",
+      "conteo": 305
+    },
+    {
+      "valor": "Sinaloa",
+      "conteo": 270
+    },
+    {
+      "valor": "CDMX",
+      "conteo": 32
+    },
+    {
+      "valor": "Tamaulipas",
+      "conteo": 19
+    }
+  ],
+  "municipios": [
+    {
+      "valor": "Monterrey",
+      "conteo": 348
+    },
+    {
+      "valor": "Guadalupe",
+      "conteo": 130
+    },
+    {
+      "valor": "Escobedo",
+      "conteo": 129
+    },
+    {
+      "valor": "San Pedro Garza García",
+      "conteo": 109
+    },
+    {
+      "valor": "San Nicolás de los Garza",
+      "conteo": 102
+    },
+    {
+      "valor": "Juárez",
+      "conteo": 97
+    },
+    {
+      "valor": "García",
+      "conteo": 85
+    },
+    {
+      "valor": "Santa Catarina",
+      "conteo": 82
+    },
+    {
+      "valor": "Santiago",
+      "conteo": 68
+    },
+    {
+      "valor": "Apodaca",
+      "conteo": 63
+    },
+    {
+      "valor": "Salinas Victoria",
+      "conteo": 5
+    },
+    {
+      "valor": "Allende",
+      "conteo": 5
+    }
+  ],
+  "partidos": [
+    {
+      "valor": "Morena",
+      "conteo": 1960
+    },
+    {
+      "valor": "PAN",
+      "conteo": 1678
+    },
+    {
+      "valor": "MC",
+      "conteo": 1521
+    },
+    {
+      "valor": "PRI",
+      "conteo": 1431
+    },
+    {
+      "valor": "PVEM",
+      "conteo": 403
+    },
+    {
+      "valor": "Morena  - PVEM - PT",
+      "conteo": 333
+    },
+    {
+      "valor": "PT",
+      "conteo": 229
+    },
+    {
+      "valor": "Independiente",
+      "conteo": 77
+    },
+    {
+      "valor": "PAN - PRI",
+      "conteo": 40
+    },
+    {
+      "valor": "Morena - PVEM - PT",
+      "conteo": 30
+    },
+    {
+      "valor": "PAN - MC",
+      "conteo": 26
+    },
+    {
+      "valor": "PRD",
+      "conteo": 25
+    },
+    {
+      "valor": "Partidos locales",
+      "conteo": 18
+    },
+    {
+      "valor": "Morena  - PT",
+      "conteo": 10
+    },
+    {
+      "valor": "Otro",
+      "conteo": 9
+    },
+    {
+      "valor": "Morena, MC, PRI, PAN, PVEM, PT, Ninguno",
+      "conteo": 7
+    },
+    {
+      "valor": "Morena - PVEM",
+      "conteo": 1
+    },
+    {
+      "valor": "MC - PVEM",
+      "conteo": 1
+    },
+    {
+      "valor": "PAN - MC - PVEM",
+      "conteo": 1
+    },
+    {
+      "valor": "Morena - PT",
+      "conteo": 1
+    }
+  ],
+  "tiposEscenario": [
+    {
+      "valor": "Interna",
+      "conteo": 5754
+    },
+    {
+      "valor": "Multipartidista",
+      "conteo": 2418
+    }
+  ],
+  "candidatos": [
+    {
+      "valor": "Adrián de la Garza",
+      "conteo": 63
+    },
+    {
+      "valor": "Fernando Margáin",
+      "conteo": 58
+    },
+    {
+      "valor": "Luis Donaldo Colosio",
+      "conteo": 52
+    },
+    {
+      "valor": "Mariana Rodríguez",
+      "conteo": 50
+    },
+    {
+      "valor": "Andrés Mijes",
+      "conteo": 47
+    },
+    {
+      "valor": "Waldo Fernández",
+      "conteo": 46
+    },
+    {
+      "valor": "Carlos de la Fuente",
+      "conteo": 45
+    },
+    {
+      "valor": "Clara Luz",
+      "conteo": 44
+    },
+    {
+      "valor": "Tatiana Clouthier",
+      "conteo": 44
+    },
+    {
+      "valor": "Daniel Carrillo",
+      "conteo": 39
+    },
+    {
+      "valor": "César Garza",
+      "conteo": 36
+    },
+    {
+      "valor": "Héctor García",
+      "conteo": 36
+    },
+    {
+      "valor": "Judith Díaz",
+      "conteo": 31
+    },
+    {
+      "valor": "Manuel Cota",
+      "conteo": 30
+    },
+    {
+      "valor": "Félix Arratia",
+      "conteo": 29
+    },
+    {
+      "valor": "Lorena de la Garza",
+      "conteo": 29
+    },
+    {
+      "valor": "Martha Herrera",
+      "conteo": 28
+    },
+    {
+      "valor": "David de la Peña",
+      "conteo": 27
+    },
+    {
+      "valor": "Ildefonso Guajardo",
+      "conteo": 26
+    },
+    {
+      "valor": "Marcela Guerra",
+      "conteo": 25
+    },
+    {
+      "valor": "Mike Flores",
+      "conteo": 24
+    },
+    {
+      "valor": "Ismael Burgueño",
+      "conteo": 23
+    },
+    {
+      "valor": "Manuel Guerra",
+      "conteo": 23
+    },
+    {
+      "valor": "Annia Gómez",
+      "conteo": 21
+    },
+    {
+      "valor": "Felifer Macías",
+      "conteo": 21
+    },
+    {
+      "valor": "Arturo Ávila",
+      "conteo": 20
+    },
+    {
+      "valor": "Julieta Ramírez",
+      "conteo": 20
+    },
+    {
+      "valor": "Héctor Santana",
+      "conteo": 20
+    },
+    {
+      "valor": "Luis Nava",
+      "conteo": 20
+    },
+    {
+      "valor": "Ivonne Álvarez",
+      "conteo": 20
+    },
+    {
+      "valor": "Héctor Castillo",
+      "conteo": 19
+    },
+    {
+      "valor": "Nora Ruvalcaba",
+      "conteo": 19
+    },
+    {
+      "valor": "Norma Bustamante",
+      "conteo": 19
+    },
+    {
+      "valor": "Gustavo de Hoyos",
+      "conteo": 19
+    },
+    {
+      "valor": "Geraldine Ponce",
+      "conteo": 19
+    },
+    {
+      "valor": "Raúl Morón",
+      "conteo": 19
+    },
+    {
+      "valor": "Agustín Dorantes",
+      "conteo": 19
+    },
+    {
+      "valor": "Fernando Canales",
+      "conteo": 19
+    },
+    {
+      "valor": "Toño Martín del Campo",
+      "conteo": 18
+    },
+    {
+      "valor": "Adrián Valle",
+      "conteo": 18
+    },
+    {
+      "valor": "Pavel Jarero",
+      "conteo": 18
+    },
+    {
+      "valor": "Gustavo Ayón",
+      "conteo": 18
+    },
+    {
+      "valor": "Pato Zambrano",
+      "conteo": 17
+    },
+    {
+      "valor": "Leonardo Montañez",
+      "conteo": 17
+    },
+    {
+      "valor": "Ulises Mejía",
+      "conteo": 17
+    },
+    {
+      "valor": "Karla Ruiz",
+      "conteo": 17
+    },
+    {
+      "valor": "Beatriz Mojica",
+      "conteo": 17
+    },
+    {
+      "valor": "Félix Salgado",
+      "conteo": 17
+    },
+    {
+      "valor": "Santiago Nieto",
+      "conteo": 17
+    },
+    {
+      "valor": "Milena Quiroga",
+      "conteo": 16
+    },
+    {
+      "valor": "Francisco Pelayo",
+      "conteo": 16
+    },
+    {
+      "valor": "Adolfo Bonilla",
+      "conteo": 16
+    },
+    {
+      "valor": "Alfredo Álvarez",
+      "conteo": 16
+    },
+    {
+      "valor": "Guadalupe Gutiérrez",
+      "conteo": 16
+    },
+    {
+      "valor": "Gina Cruz",
+      "conteo": 16
+    },
+    {
+      "valor": "Marco Bonilla",
+      "conteo": 16
+    },
+    {
+      "valor": "Andrea Chávez",
+      "conteo": 16
+    },
+    {
+      "valor": "Fausto Gallardo",
+      "conteo": 16
+    },
+    {
+      "valor": "Juan Carlos Hank",
+      "conteo": 16
+    },
+    {
+      "valor": "Ivideliza Reyes",
+      "conteo": 16
+    },
+    {
+      "valor": "Alfonso Martínez",
+      "conteo": 16
+    },
+    {
+      "valor": "Jasmin Bugarín",
+      "conteo": 16
+    },
+    {
+      "valor": "Abelina López",
+      "conteo": 16
+    },
+    {
+      "valor": "Gino Segura",
+      "conteo": 16
+    },
+    {
+      "valor": "Rosi Bayardo",
+      "conteo": 16
+    },
+    {
+      "valor": "Otro",
+      "conteo": 16
+    },
+    {
+      "valor": "Armando Ayala",
+      "conteo": 15
+    },
+    {
+      "valor": "Christian Agúndez",
+      "conteo": 15
+    },
+    {
+      "valor": "Juan Valdivia",
+      "conteo": 15
+    },
+    {
+      "valor": "Jorge Máynez",
+      "conteo": 15
+    },
+    {
+      "valor": "Tony Meléndez",
+      "conteo": 15
+    },
+    {
+      "valor": "Lupita Saldaña",
+      "conteo": 15
+    },
+    {
+      "valor": "Guillermo Valencia",
+      "conteo": 15
+    },
+    {
+      "valor": "Fabiola Alanis",
+      "conteo": 15
+    },
+    {
+      "valor": "Rafael Marín",
+      "conteo": 15
+    },
+    {
+      "valor": "Marybel Villegas",
+      "conteo": 15
+    },
+    {
+      "valor": "Ana Patricia Peralta",
+      "conteo": 15
+    },
+    {
+      "valor": "Riult Rivera",
+      "conteo": 15
+    },
+    {
+      "valor": "Mely Romero",
+      "conteo": 15
+    },
+    {
+      "valor": "Leoncio Morán",
+      "conteo": 15
+    },
+    {
+      "valor": "Susana Zataráin",
+      "conteo": 14
+    },
+    {
+      "valor": "Claudia Anaya",
+      "conteo": 14
+    },
+    {
+      "valor": "José Narro",
+      "conteo": 14
+    },
+    {
+      "valor": "Alfredo Lozoya",
+      "conteo": 14
+    },
+    {
+      "valor": "Daylín García",
+      "conteo": 14
+    },
+    {
+      "valor": "Ana Lilia Rivera",
+      "conteo": 14
+    },
+    {
+      "valor": "Cruz Pérez",
+      "conteo": 14
+    },
+    {
+      "valor": "Adriana Dávila",
+      "conteo": 14
+    },
+    {
+      "valor": "Gustavo Sánchez",
+      "conteo": 14
+    },
+    {
+      "valor": "Ruth González",
+      "conteo": 14
+    },
+    {
+      "valor": "Enrique Díaz",
+      "conteo": 14
+    },
+    {
+      "valor": "José Ramón",
+      "conteo": 14
+    },
+    {
+      "valor": "Antonio Astiazarán",
+      "conteo": 14
+    },
+    {
+      "valor": "Carlos Torres",
+      "conteo": 14
+    },
+    {
+      "valor": "Manuel Añorve",
+      "conteo": 14
+    },
+    {
+      "valor": "Pablo Amílcar",
+      "conteo": 14
+    },
+    {
+      "valor": "Estefanía Mercado",
+      "conteo": 14
+    },
+    {
+      "valor": "Julia Jiménez",
+      "conteo": 14
+    },
+    {
+      "valor": "Lupita Murguía",
+      "conteo": 14
+    },
+    {
+      "valor": "Víctor Pérez",
+      "conteo": 14
+    },
+    {
+      "valor": "Lucía Trasviña",
+      "conteo": 13
+    },
+    {
+      "valor": "Rigoberto Mares",
+      "conteo": 13
+    },
+    {
+      "valor": "Christian del Castillo",
+      "conteo": 13
+    },
+    {
+      "valor": "Antonio Arámbula",
+      "conteo": 13
+    },
+    {
+      "valor": "Verónica Díaz",
+      "conteo": 13
+    },
+    {
+      "valor": "Ana María Romo",
+      "conteo": 13
+    },
+    {
+      "valor": "Alfonso Sánchez",
+      "conteo": 13
+    },
+    {
+      "valor": "Anabell Ávalos",
+      "conteo": 13
+    },
+    {
+      "valor": "Enrique Galindo",
+      "conteo": 13
+    },
+    {
+      "valor": "Ignacio Flores",
+      "conteo": 13
+    },
+    {
+      "valor": "Luis Zamora",
+      "conteo": 13
+    },
+    {
+      "valor": "Ernesto Gándara",
+      "conteo": 13
+    },
+    {
+      "valor": "Javier Lamarque",
+      "conteo": 13
+    },
+    {
+      "valor": "Biby Rabelo",
+      "conteo": 13
+    },
+    {
+      "valor": "Liz Hernández",
+      "conteo": 13
+    },
+    {
+      "valor": "Pablo Gutiérrez",
+      "conteo": 13
+    },
+    {
+      "valor": "Mario delgado",
+      "conteo": 13
+    },
+    {
+      "valor": "Gilberto Herrera",
+      "conteo": 13
+    },
+    {
+      "valor": "Edith Aguilar",
+      "conteo": 12
+    },
+    {
+      "valor": "Ana Gómez",
+      "conteo": 12
+    },
+    {
+      "valor": "Aldo Ruiz",
+      "conteo": 12
+    },
+    {
+      "valor": "José Manuel Viramontes",
+      "conteo": 12
+    },
+    {
+      "valor": "Juan Carlos Loera",
+      "conteo": 12
+    },
+    {
+      "valor": "Ángelo Gutiérrez",
+      "conteo": 12
+    },
+    {
+      "valor": "Miriam Martínez",
+      "conteo": 12
+    },
+    {
+      "valor": "Rosa Icela",
+      "conteo": 12
+    },
+    {
+      "valor": "Enrique Padilla",
+      "conteo": 12
+    },
+    {
+      "valor": "José Antonio Barajas",
+      "conteo": 12
+    },
+    {
+      "valor": "Lorenia Valles",
+      "conteo": 12
+    },
+    {
+      "valor": "Julieta Mejía",
+      "conteo": 12
+    },
+    {
+      "valor": "Eduardo Ortiz",
+      "conteo": 12
+    },
+    {
+      "valor": "Ariana Rejón",
+      "conteo": 12
+    },
+    {
+      "valor": "Daniel Barreda",
+      "conteo": 12
+    },
+    {
+      "valor": "Eliseo Fernández",
+      "conteo": 12
+    },
+    {
+      "valor": "Martina Kantún",
+      "conteo": 12
+    },
+    {
+      "valor": "Nelly Rodríguez",
+      "conteo": 12
+    },
+    {
+      "valor": "Imelda Castro",
+      "conteo": 12
+    },
+    {
+      "valor": "Yolanda Valladares",
+      "conteo": 12
+    },
+    {
+      "valor": "Juan de Dios Gámez",
+      "conteo": 12
+    },
+    {
+      "valor": "Viridiana Valencia",
+      "conteo": 12
+    },
+    {
+      "valor": "Sofia Peralta",
+      "conteo": 12
+    },
+    {
+      "valor": "Griselda Martínez",
+      "conteo": 12
+    },
+    {
+      "valor": "Beatríz Robles",
+      "conteo": 12
+    },
+    {
+      "valor": "Teresa Calzada",
+      "conteo": 12
+    },
+    {
+      "valor": "Martín López",
+      "conteo": 12
+    },
+    {
+      "valor": "Lorena Martínez",
+      "conteo": 11
+    },
+    {
+      "valor": "Jesús Valenciano",
+      "conteo": 11
+    },
+    {
+      "valor": "Daniela Álvarez",
+      "conteo": 11
+    },
+    {
+      "valor": "Danae Figueroa",
+      "conteo": 11
+    },
+    {
+      "valor": "Álvaro Aldrete",
+      "conteo": 11
+    },
+    {
+      "valor": "Alejandro Domínguez",
+      "conteo": 11
+    },
+    {
+      "valor": "Gerardo Sánchez",
+      "conteo": 11
+    },
+    {
+      "valor": "Homero Davis",
+      "conteo": 11
+    },
+    {
+      "valor": "Manuel Scott",
+      "conteo": 11
+    },
+    {
+      "valor": "Heriberto Aguilar",
+      "conteo": 11
+    },
+    {
+      "valor": "Carlos Herrera",
+      "conteo": 11
+    },
+    {
+      "valor": "Gladyz Butanda",
+      "conteo": 11
+    },
+    {
+      "valor": "Marko Cortés",
+      "conteo": 11
+    },
+    {
+      "valor": "Nadia Ramírez",
+      "conteo": 11
+    },
+    {
+      "valor": "Citlali Huerta",
+      "conteo": 11
+    },
+    {
+      "valor": "Paola Vargas",
+      "conteo": 11
+    },
+    {
+      "valor": "Alejandro Bravo",
+      "conteo": 11
+    },
+    {
+      "valor": "Aníbal Ostoa",
+      "conteo": 11
+    },
+    {
+      "valor": "Mario Zamora",
+      "conteo": 11
+    },
+    {
+      "valor": "Paloma Sánchez",
+      "conteo": 11
+    },
+    {
+      "valor": "Rodrigo Reyes",
+      "conteo": 11
+    },
+    {
+      "valor": "Rocío Abreu",
+      "conteo": 11
+    },
+    {
+      "valor": "Roberto Palazuelos",
+      "conteo": 11
+    },
+    {
+      "valor": "Pedro Flota",
+      "conteo": 11
+    },
+    {
+      "valor": "Enrique Inzunza",
+      "conteo": 11
+    },
+    {
+      "valor": "Julián López",
+      "conteo": 11
+    },
+    {
+      "valor": "Ana Karen Hernández",
+      "conteo": 11
+    },
+    {
+      "valor": "Margarita Moreno",
+      "conteo": 11
+    },
+    {
+      "valor": "Mario Calzada",
+      "conteo": 11
+    },
+    {
+      "valor": "Rubén Cayetano",
+      "conteo": 11
+    },
+    {
+      "valor": "Marco Vinicio",
+      "conteo": 10
+    },
+    {
+      "valor": "Omar Bazán",
+      "conteo": 10
+    },
+    {
+      "valor": "Rubén Guajardo",
+      "conteo": 10
+    },
+    {
+      "valor": "Josefina Salazar",
+      "conteo": 10
+    },
+    {
+      "valor": "Francisco Sánchez",
+      "conteo": 10
+    },
+    {
+      "valor": "Bertha Ruiz",
+      "conteo": 10
+    },
+    {
+      "valor": "Gloria Nuñez",
+      "conteo": 10
+    },
+    {
+      "valor": "Damián Zepeda",
+      "conteo": 10
+    },
+    {
+      "valor": "Lilly Téllez",
+      "conteo": 10
+    },
+    {
+      "valor": "Sylvana Beltrones",
+      "conteo": 10
+    },
+    {
+      "valor": "Natalia Rivera",
+      "conteo": 10
+    },
+    {
+      "valor": "Eloy Salmerón",
+      "conteo": 10
+    },
+    {
+      "valor": "Karla Toledo",
+      "conteo": 10
+    },
+    {
+      "valor": "Roxana Rubio",
+      "conteo": 10
+    },
+    {
+      "valor": "Guillermo Romero",
+      "conteo": 10
+    },
+    {
+      "valor": "Ricardo Medina",
+      "conteo": 10
+    },
+    {
+      "valor": "José Luis Pech",
+      "conteo": 10
+    },
+    {
+      "valor": "Carlos Peña",
+      "conteo": 10
+    },
+    {
+      "valor": "Leslie Hendricks",
+      "conteo": 10
+    },
+    {
+      "valor": "Mayuli Martínez",
+      "conteo": 10
+    },
+    {
+      "valor": "Lidia Rojas",
+      "conteo": 10
+    },
+    {
+      "valor": "Gaby Bernal",
+      "conteo": 10
+    },
+    {
+      "valor": "Ricardo Anaya",
+      "conteo": 10
+    },
+    {
+      "valor": "Paulina Aguado",
+      "conteo": 10
+    },
+    {
+      "valor": "Ernesto Altamirano",
+      "conteo": 9
+    },
+    {
+      "valor": "Javier Javo",
+      "conteo": 9
+    },
+    {
+      "valor": "Noemí Luna",
+      "conteo": 9
+    },
+    {
+      "valor": "Anayeli Muñoz",
+      "conteo": 9
+    },
+    {
+      "valor": "Verónica Rodríguez",
+      "conteo": 9
+    },
+    {
+      "valor": "Montserrat Caballero",
+      "conteo": 9
+    },
+    {
+      "valor": "Josefina Rodríguez",
+      "conteo": 9
+    },
+    {
+      "valor": "Zury Espino",
+      "conteo": 9
+    },
+    {
+      "valor": "Marco Gama",
+      "conteo": 9
+    },
+    {
+      "valor": "Ariadna Montiel",
+      "conteo": 9
+    },
+    {
+      "valor": "Hilaria Domínguez",
+      "conteo": 9
+    },
+    {
+      "valor": "Froylán Gámez",
+      "conteo": 9
+    },
+    {
+      "valor": "Adriana Hernández",
+      "conteo": 9
+    },
+    {
+      "valor": "Gabriela Molina",
+      "conteo": 9
+    },
+    {
+      "valor": "Carlos Soto",
+      "conteo": 9
+    },
+    {
+      "valor": "Sergio Torres",
+      "conteo": 9
+    },
+    {
+      "valor": "Filiberto Martínez",
+      "conteo": 9
+    },
+    {
+      "valor": "Miguel Varela",
+      "conteo": 9
+    },
+    {
+      "valor": "Tere Guerra",
+      "conteo": 9
+    },
+    {
+      "valor": "José Israel González",
+      "conteo": 9
+    },
+    {
+      "valor": "Hilda Moreno",
+      "conteo": 9
+    },
+    {
+      "valor": "Christian Castro",
+      "conteo": 9
+    },
+    {
+      "valor": "Lorena Lührs",
+      "conteo": 9
+    },
+    {
+      "valor": "Juan Carlos Valladares",
+      "conteo": 9
+    },
+    {
+      "valor": "Reyna Tamayo",
+      "conteo": 9
+    },
+    {
+      "valor": "Abigail Arredondo",
+      "conteo": 9
+    },
+    {
+      "valor": "Ricardo Astudillo",
+      "conteo": 9
+    },
+    {
+      "valor": "Sandra Pámanes",
+      "conteo": 9
+    },
+    {
+      "valor": "Saúl Monreal",
+      "conteo": 8
+    },
+    {
+      "valor": "Rita Rodríguez",
+      "conteo": 8
+    },
+    {
+      "valor": "Carlos Arreola",
+      "conteo": 8
+    },
+    {
+      "valor": "Mariana Jiménez",
+      "conteo": 8
+    },
+    {
+      "valor": "Refugio Rivas",
+      "conteo": 8
+    },
+    {
+      "valor": "Dulce Silva",
+      "conteo": 8
+    },
+    {
+      "valor": "Dulce Dorantes",
+      "conteo": 8
+    },
+    {
+      "valor": "Gerardo Vargas",
+      "conteo": 8
+    },
+    {
+      "valor": "Benelly Hernández",
+      "conteo": 8
+    },
+    {
+      "valor": "Bernardo Antelo",
+      "conteo": 8
+    },
+    {
+      "valor": "Gustavo Alarcón",
+      "conteo": 8
+    },
+    {
+      "valor": "David Ortiz",
+      "conteo": 8
+    },
+    {
+      "valor": "José Gómez",
+      "conteo": 8
+    },
+    {
+      "valor": "Ernesto Sánchez",
+      "conteo": 8
+    },
+    {
+      "valor": "Flavio Obdulio",
+      "conteo": 8
+    },
+    {
+      "valor": "Celia Maya",
+      "conteo": 8
+    },
+    {
+      "valor": "María López Blanco",
+      "conteo": 8
+    },
+    {
+      "valor": "Raúl Zepeda",
+      "conteo": 8
+    },
+    {
+      "valor": "Marcelo Segovia",
+      "conteo": 8
+    },
+    {
+      "valor": "Rubén Muñoz",
+      "conteo": 7
+    },
+    {
+      "valor": "Ricardo Barroso",
+      "conteo": 7
+    },
+    {
+      "valor": "Juan Carlos Sánchez",
+      "conteo": 7
+    },
+    {
+      "valor": "Sara Rocha",
+      "conteo": 7
+    },
+    {
+      "valor": "Ricardo Gallardo",
+      "conteo": 7
+    },
+    {
+      "valor": "Marvelly Costanzo",
+      "conteo": 7
+    },
+    {
+      "valor": "Karla Córdova",
+      "conteo": 7
+    },
+    {
+      "valor": "Paloma Domínguez",
+      "conteo": 7
+    },
+    {
+      "valor": "Rogelio Díaz",
+      "conteo": 7
+    },
+    {
+      "valor": "Víctor Manuel Manríquez",
+      "conteo": 7
+    },
+    {
+      "valor": "Grecia Quiroz",
+      "conteo": 7
+    },
+    {
+      "valor": "Germán Martínez",
+      "conteo": 7
+    },
+    {
+      "valor": "Esthela Damián",
+      "conteo": 7
+    },
+    {
+      "valor": "Jesús Rodríguez",
+      "conteo": 7
+    },
+    {
+      "valor": "Reynel Rodríguez",
+      "conteo": 7
+    },
+    {
+      "valor": "Alma Anahí González",
+      "conteo": 7
+    },
+    {
+      "valor": "Patricia Mercado",
+      "conteo": 7
+    },
+    {
+      "valor": "Virgilio Mendoza",
+      "conteo": 7
+    },
+    {
+      "valor": "Mauricio Farah",
+      "conteo": 7
+    },
+    {
+      "valor": "José Guadalupe Torres",
+      "conteo": 7
+    },
+    {
+      "valor": "Andrea Tovar",
+      "conteo": 7
+    },
+    {
+      "valor": "Elda Candelaria",
+      "conteo": 7
+    },
+    {
+      "valor": "Yesenia Galarza",
+      "conteo": 7
+    },
+    {
+      "valor": "Silvia Briseño",
+      "conteo": 7
+    },
+    {
+      "valor": "Grecia Benavides",
+      "conteo": 7
+    },
+    {
+      "valor": "Marco del Prete",
+      "conteo": 7
+    },
+    {
+      "valor": "Guadalupe González",
+      "conteo": 7
+    },
+    {
+      "valor": "Francisco Cruz",
+      "conteo": 7
+    },
+    {
+      "valor": "Myrna Grimaldo",
+      "conteo": 7
+    },
+    {
+      "valor": "Jesús Nava",
+      "conteo": 6
+    },
+    {
+      "valor": "Alejandro Aguilar",
+      "conteo": 6
+    },
+    {
+      "valor": "Adolfo Salazar",
+      "conteo": 6
+    },
+    {
+      "valor": "María Elizabeth López",
+      "conteo": 6
+    },
+    {
+      "valor": "Jorge Sánchez",
+      "conteo": 6
+    },
+    {
+      "valor": "Sergio Esquer",
+      "conteo": 6
+    },
+    {
+      "valor": "Aarón Irízar",
+      "conteo": 6
+    },
+    {
+      "valor": "María Cristina Lupien",
+      "conteo": 6
+    },
+    {
+      "valor": "Cuauthli Badillo",
+      "conteo": 6
+    },
+    {
+      "valor": "Manuel Garrido",
+      "conteo": 6
+    },
+    {
+      "valor": "Salvador Castañeda",
+      "conteo": 6
+    },
+    {
+      "valor": "Patricio Zambrano",
+      "conteo": 6
+    },
+    {
+      "valor": "Marisol González",
+      "conteo": 6
+    },
+    {
+      "valor": "Alejandra Morales",
+      "conteo": 6
+    },
+    {
+      "valor": "Felipe Canales",
+      "conteo": 6
+    },
+    {
+      "valor": "Irgla Guzmán",
+      "conteo": 6
+    },
+    {
+      "valor": "Norma Benítez",
+      "conteo": 6
+    },
+    {
+      "valor": "Alfonso Ayala",
+      "conteo": 6
+    },
+    {
+      "valor": "Mercedes García",
+      "conteo": 6
+    },
+    {
+      "valor": "Ricardo Orozco",
+      "conteo": 6
+    },
+    {
+      "valor": "Karina Barrón",
+      "conteo": 6
+    },
+    {
+      "valor": "Daniel Acosta",
+      "conteo": 6
+    },
+    {
+      "valor": "Miguel  Varela",
+      "conteo": 5
+    },
+    {
+      "valor": "Mayra Chávez",
+      "conteo": 5
+    },
+    {
+      "valor": "Gilberto Loya",
+      "conteo": 5
+    },
+    {
+      "valor": "Juan Manuel Navarro",
+      "conteo": 5
+    },
+    {
+      "valor": "Olga Adams",
+      "conteo": 5
+    },
+    {
+      "valor": "Agustín Rodríguez",
+      "conteo": 5
+    },
+    {
+      "valor": "Daniela de los Santos",
+      "conteo": 5
+    },
+    {
+      "valor": "Abigail Rojas",
+      "conteo": 5
+    },
+    {
+      "valor": "Javier Torres",
+      "conteo": 5
+    },
+    {
+      "valor": "Noemí Luna Ayala",
+      "conteo": 5
+    },
+    {
+      "valor": "Lizzie Moreno",
+      "conteo": 5
+    },
+    {
+      "valor": "Tey Gutiérrez",
+      "conteo": 5
+    },
+    {
+      "valor": "Gustavo Macalpin",
+      "conteo": 5
+    },
+    {
+      "valor": "Salvador Farías",
+      "conteo": 5
+    },
+    {
+      "valor": "Luis Fernández",
+      "conteo": 5
+    },
+    {
+      "valor": "Chepe Guerrero",
+      "conteo": 5
+    },
+    {
+      "valor": "Xavier Azuara",
+      "conteo": 5
+    },
+    {
+      "valor": "Laura Ramos",
+      "conteo": 5
+    },
+    {
+      "valor": "René Mejía",
+      "conteo": 5
+    },
+    {
+      "valor": "Jorge Salgado",
+      "conteo": 5
+    },
+    {
+      "valor": "Benjamín Alamillo",
+      "conteo": 5
+    },
+    {
+      "valor": "Clara Luz Flores",
+      "conteo": 5
+    },
+    {
+      "valor": "Felipe de Jesús Cantú",
+      "conteo": 5
+    },
+    {
+      "valor": "Jesús Elizondo",
+      "conteo": 5
+    },
+    {
+      "valor": "Raúl Lozano",
+      "conteo": 5
+    },
+    {
+      "valor": "Paola González",
+      "conteo": 5
+    },
+    {
+      "valor": "Pedro Garza",
+      "conteo": 5
+    },
+    {
+      "valor": "José Luis Garza",
+      "conteo": 5
+    },
+    {
+      "valor": "Fernando Margain",
+      "conteo": 5
+    },
+    {
+      "valor": "Francisco Javier Cruz",
+      "conteo": 5
+    },
+    {
+      "valor": "Itzel Castillo",
+      "conteo": 5
+    },
+    {
+      "valor": "Mauricio Cantú",
+      "conteo": 5
+    },
+    {
+      "valor": "Mauro Guerra",
+      "conteo": 5
+    },
+    {
+      "valor": "Elizabeth Galicia",
+      "conteo": 5
+    },
+    {
+      "valor": "Clara Luz Carrales",
+      "conteo": 4
+    },
+    {
+      "valor": "Fernanda Rivera",
+      "conteo": 4
+    },
+    {
+      "valor": "Gilberto Gutiérrez",
+      "conteo": 4
+    },
+    {
+      "valor": "Gilberto Hernández",
+      "conteo": 4
+    },
+    {
+      "valor": "Alfonso Ramírez",
+      "conteo": 4
+    },
+    {
+      "valor": "Paúl Ospital",
+      "conteo": 4
+    },
+    {
+      "valor": "Nacho Flores",
+      "conteo": 4
+    },
+    {
+      "valor": "Esther Andrade",
+      "conteo": 4
+    },
+    {
+      "valor": "Gricelda Valencia",
+      "conteo": 4
+    },
+    {
+      "valor": "Gaby Molina",
+      "conteo": 4
+    },
+    {
+      "valor": "Mario Vásquez",
+      "conteo": 4
+    },
+    {
+      "valor": "Antonio Jiménez",
+      "conteo": 4
+    },
+    {
+      "valor": "David Azuara",
+      "conteo": 4
+    },
+    {
+      "valor": "Yolanda Gutiérrez",
+      "conteo": 4
+    },
+    {
+      "valor": "Armando Toledo",
+      "conteo": 4
+    },
+    {
+      "valor": "Paul Ospital",
+      "conteo": 4
+    },
+    {
+      "valor": "Otro/a",
+      "conteo": 4
+    },
+    {
+      "valor": "Oscar Flores",
+      "conteo": 4
+    },
+    {
+      "valor": "Arturo Cavazos",
+      "conteo": 4
+    },
+    {
+      "valor": "Jorge Espronceda",
+      "conteo": 4
+    },
+    {
+      "valor": "Vivianne Clariond",
+      "conteo": 4
+    },
+    {
+      "valor": "Wendy Cordero",
+      "conteo": 4
+    },
+    {
+      "valor": "María de Jesús Aguirre",
+      "conteo": 4
+    },
+    {
+      "valor": "Gloria Treviño",
+      "conteo": 4
+    },
+    {
+      "valor": "Miguel Treviño",
+      "conteo": 4
+    },
+    {
+      "valor": "Jesús Garza",
+      "conteo": 4
+    },
+    {
+      "valor": "Andrés Cantú",
+      "conteo": 4
+    },
+    {
+      "valor": "Sabino Maldonado",
+      "conteo": 4
+    },
+    {
+      "valor": "Paulina Flores",
+      "conteo": 4
+    },
+    {
+      "valor": "Miguel Lechuga",
+      "conteo": 4
+    },
+    {
+      "valor": "Mireya Cardona",
+      "conteo": 4
+    },
+    {
+      "valor": "Iván Medrano",
+      "conteo": 4
+    },
+    {
+      "valor": "Juan Ignacio Barragán",
+      "conteo": 4
+    },
+    {
+      "valor": "Heriberto Treviño",
+      "conteo": 4
+    },
+    {
+      "valor": "Víctor Guerrero",
+      "conteo": 4
+    },
+    {
+      "valor": "Arturo Benavides",
+      "conteo": 4
+    },
+    {
+      "valor": "Adriana Quiroz",
+      "conteo": 4
+    },
+    {
+      "valor": "Lilia Olivares",
+      "conteo": 4
+    },
+    {
+      "valor": "Greta Barra",
+      "conteo": 4
+    },
+    {
+      "valor": "Paola García",
+      "conteo": 4
+    },
+    {
+      "valor": "Adrián Guerra",
+      "conteo": 4
+    },
+    {
+      "valor": "Nydia Guzmán",
+      "conteo": 4
+    },
+    {
+      "valor": "Marco Martínez",
+      "conteo": 4
+    },
+    {
+      "valor": "Víctor Martínez",
+      "conteo": 4
+    },
+    {
+      "valor": "Carlos Garza",
+      "conteo": 4
+    },
+    {
+      "valor": "Brenda Velázquez",
+      "conteo": 4
+    },
+    {
+      "valor": "Margarita Martínez",
+      "conteo": 4
+    },
+    {
+      "valor": "Ana González",
+      "conteo": 4
+    },
+    {
+      "valor": "Juan Pablo Castuera",
+      "conteo": 4
+    },
+    {
+      "valor": "Miriam Soto",
+      "conteo": 3
+    },
+    {
+      "valor": "Argelia Núñez",
+      "conteo": 3
+    },
+    {
+      "valor": "Graciela Ortiz",
+      "conteo": 3
+    },
+    {
+      "valor": "Homero Meneses",
+      "conteo": 3
+    },
+    {
+      "valor": "Fernando Castro",
+      "conteo": 3
+    },
+    {
+      "valor": "Jesús Ruiz",
+      "conteo": 3
+    },
+    {
+      "valor": "Celeste Ascencio",
+      "conteo": 3
+    },
+    {
+      "valor": "Claudia Agatón",
+      "conteo": 3
+    },
+    {
+      "valor": "Mario Moreno",
+      "conteo": 3
+    },
+    {
+      "valor": "Cristina Díaz",
+      "conteo": 3
+    },
+    {
+      "valor": "José Romero",
+      "conteo": 3
+    },
+    {
+      "valor": "Gabriela Benavides",
+      "conteo": 3
+    },
+    {
+      "valor": "Ivonne Sabinna",
+      "conteo": 3
+    },
+    {
+      "valor": "Julieta Venegas",
+      "conteo": 3
+    },
+    {
+      "valor": "Evangelina Moreno",
+      "conteo": 3
+    },
+    {
+      "valor": "Yaszú Muñoz",
+      "conteo": 3
+    },
+    {
+      "valor": "Geovanna Bañuelos",
+      "conteo": 3
+    },
+    {
+      "valor": "Célida López",
+      "conteo": 3
+    },
+    {
+      "valor": "Toño Ixtláhuac",
+      "conteo": 3
+    },
+    {
+      "valor": "Tania Domínguez",
+      "conteo": 3
+    },
+    {
+      "valor": "Oliverio Tijerina",
+      "conteo": 3
+    },
+    {
+      "valor": "Verónica Alamillo",
+      "conteo": 3
+    },
+    {
+      "valor": "Bertha Arriega",
+      "conteo": 3
+    },
+    {
+      "valor": "María del Rosario Cruz",
+      "conteo": 3
+    },
+    {
+      "valor": "Raúl Cantú",
+      "conteo": 3
+    },
+    {
+      "valor": "Pablo Angulo",
+      "conteo": 3
+    },
+    {
+      "valor": "Marisol Neri",
+      "conteo": 3
+    },
+    {
+      "valor": "Rogelio Ortega",
+      "conteo": 3
+    },
+    {
+      "valor": "Alberto López",
+      "conteo": 3
+    },
+    {
+      "valor": "Víctor Manríquez",
+      "conteo": 3
+    },
+    {
+      "valor": "César Garza Villarreal",
+      "conteo": 3
+    },
+    {
+      "valor": "Juan Valladares",
+      "conteo": 3
+    },
+    {
+      "valor": "Felipe de Jesús Cántu",
+      "conteo": 3
+    },
+    {
+      "valor": "Clara Flores",
+      "conteo": 3
+    },
+    {
+      "valor": "Héctor de la Garza",
+      "conteo": 3
+    },
+    {
+      "valor": "Ninguna",
+      "conteo": 3
+    },
+    {
+      "valor": "Franciso Treviño",
+      "conteo": 3
+    },
+    {
+      "valor": "Carlos Barona",
+      "conteo": 3
+    },
+    {
+      "valor": "José Luz García",
+      "conteo": 3
+    },
+    {
+      "valor": "Hernán Sada",
+      "conteo": 3
+    },
+    {
+      "valor": "Eduardo García",
+      "conteo": 3
+    },
+    {
+      "valor": "Laura Madrigal",
+      "conteo": 3
+    },
+    {
+      "valor": "Alvaro Suárez",
+      "conteo": 3
+    },
+    {
+      "valor": "Narcedalia Espronceda",
+      "conteo": 3
+    },
+    {
+      "valor": "Tomás Montoya",
+      "conteo": 3
+    },
+    {
+      "valor": "Ernesto Gutiérrez",
+      "conteo": 3
+    },
+    {
+      "valor": "Edelmiro Cavazos",
+      "conteo": 3
+    },
+    {
+      "valor": "Angélica Quiroz",
+      "conteo": 3
+    },
+    {
+      "valor": "María del Consuelo",
+      "conteo": 3
+    },
+    {
+      "valor": "Oscar Cantú",
+      "conteo": 3
+    },
+    {
+      "valor": "René García",
+      "conteo": 3
+    },
+    {
+      "valor": "Francisco Cienfugos",
+      "conteo": 3
+    },
+    {
+      "valor": "Paola Linares",
+      "conteo": 3
+    },
+    {
+      "valor": "Erika González",
+      "conteo": 3
+    },
+    {
+      "valor": "Saúl Alanis Garza",
+      "conteo": 3
+    },
+    {
+      "valor": "Julia Espinosa",
+      "conteo": 3
+    },
+    {
+      "valor": "Américo Garzas",
+      "conteo": 3
+    },
+    {
+      "valor": "Andrés Pintos",
+      "conteo": 3
+    },
+    {
+      "valor": "Lorenza Gómez",
+      "conteo": 3
+    },
+    {
+      "valor": "Jorge Hinojosa",
+      "conteo": 3
+    },
+    {
+      "valor": "Arturo Salinas Garza",
+      "conteo": 3
+    },
+    {
+      "valor": "Iván Garza Téllez",
+      "conteo": 3
+    },
+    {
+      "valor": "Annia Gómez Cárdenas",
+      "conteo": 3
+    },
+    {
+      "valor": "Guillermina Alvarado",
+      "conteo": 3
+    },
+    {
+      "valor": "Ana Isabel González",
+      "conteo": 3
+    },
+    {
+      "valor": "Judith Diaz",
+      "conteo": 3
+    },
+    {
+      "valor": "Dulce María",
+      "conteo": 2
+    },
+    {
+      "valor": "Paulina Ocaña",
+      "conteo": 2
+    },
+    {
+      "valor": "Jorge Ramos",
+      "conteo": 2
+    },
+    {
+      "valor": "Marcela González",
+      "conteo": 2
+    },
+    {
+      "valor": "Julio César",
+      "conteo": 2
+    },
+    {
+      "valor": "Jorge Rodríguez",
+      "conteo": 2
+    },
+    {
+      "valor": "María Teresa Guerra",
+      "conteo": 2
+    },
+    {
+      "valor": "Graciela Domínguez",
+      "conteo": 2
+    },
+    {
+      "valor": "José Domingo",
+      "conteo": 2
+    },
+    {
+      "valor": "Álvaro Bracamonte",
+      "conteo": 2
+    },
+    {
+      "valor": "Juan Francisco Nogales",
+      "conteo": 2
+    },
+    {
+      "valor": "Ernesto de Lucas",
+      "conteo": 2
+    },
+    {
+      "valor": "Norma Amaya",
+      "conteo": 2
+    },
+    {
+      "valor": "Carlos Puente",
+      "conteo": 2
+    },
+    {
+      "valor": "Álvaro Suárez",
+      "conteo": 2
+    },
+    {
+      "valor": "Jacinto González",
+      "conteo": 2
+    },
+    {
+      "valor": "Javier Farías",
+      "conteo": 2
+    },
+    {
+      "valor": "Héctor Cabada",
+      "conteo": 2
+    },
+    {
+      "valor": "Saúl González",
+      "conteo": 2
+    },
+    {
+      "valor": "Raymundo Vázquez",
+      "conteo": 2
+    },
+    {
+      "valor": "Kendor García",
+      "conteo": 2
+    },
+    {
+      "valor": "Margarita Gallegos",
+      "conteo": 2
+    },
+    {
+      "valor": "Gabriel Arellano",
+      "conteo": 2
+    },
+    {
+      "valor": "José María Tapia",
+      "conteo": 2
+    },
+    {
+      "valor": "Raúl García",
+      "conteo": 2
+    },
+    {
+      "valor": "Zeferino Salgado",
+      "conteo": 2
+    },
+    {
+      "valor": "Gustavo Miranda",
+      "conteo": 2
+    },
+    {
+      "valor": "Imelda García",
+      "conteo": 2
+    },
+    {
+      "valor": "Carlos Ledesma",
+      "conteo": 2
+    },
+    {
+      "valor": "Yoshi Oávila",
+      "conteo": 2
+    },
+    {
+      "valor": "César Yañez",
+      "conteo": 2
+    },
+    {
+      "valor": "Carlos Olson",
+      "conteo": 2
+    },
+    {
+      "valor": "Argelia Nuñez",
+      "conteo": 2
+    },
+    {
+      "valor": "Paola Gárate",
+      "conteo": 2
+    },
+    {
+      "valor": "Angélica Granados",
+      "conteo": 2
+    },
+    {
+      "valor": "Santiago de la Peña",
+      "conteo": 2
+    },
+    {
+      "valor": "Mariana Sosa",
+      "conteo": 2
+    },
+    {
+      "valor": "Giulianna Bugarini",
+      "conteo": 2
+    },
+    {
+      "valor": "Tania Palacios",
+      "conteo": 2
+    },
+    {
+      "valor": "Paola Longoria",
+      "conteo": 2
+    },
+    {
+      "valor": "Miguel Flores",
+      "conteo": 2
+    },
+    {
+      "valor": "Elva Alonso",
+      "conteo": 2
+    },
+    {
+      "valor": "Victor Guerrero",
+      "conteo": 2
+    },
+    {
+      "valor": "Luis Susarrey",
+      "conteo": 2
+    },
+    {
+      "valor": "Orpha Guzmán",
+      "conteo": 2
+    },
+    {
+      "valor": "Lorena Gómez",
+      "conteo": 2
+    },
+    {
+      "valor": "Luis Susarrey Flores",
+      "conteo": 2
+    },
+    {
+      "valor": "Alicia González",
+      "conteo": 2
+    },
+    {
+      "valor": "Elva González",
+      "conteo": 2
+    },
+    {
+      "valor": "Rafael de la Peña",
+      "conteo": 2
+    },
+    {
+      "valor": "Nazario Vargas",
+      "conteo": 2
+    },
+    {
+      "valor": "Esther Martínez",
+      "conteo": 2
+    },
+    {
+      "valor": "Alfonso Robledo Leal",
+      "conteo": 2
+    },
+    {
+      "valor": "Héctor de la Garza Villareal",
+      "conteo": 2
+    },
+    {
+      "valor": "José Reyna",
+      "conteo": 2
+    },
+    {
+      "valor": "Wendy Cordero González",
+      "conteo": 2
+    },
+    {
+      "valor": "María del Consuelo Gálvez",
+      "conteo": 2
+    },
+    {
+      "valor": "Myrna Baho de González",
+      "conteo": 2
+    },
+    {
+      "valor": "Anahí Díaz Olmos",
+      "conteo": 2
+    },
+    {
+      "valor": "Myrna Baho",
+      "conteo": 2
+    },
+    {
+      "valor": "José Manuel",
+      "conteo": 2
+    },
+    {
+      "valor": "Elva Alonso González",
+      "conteo": 2
+    },
+    {
+      "valor": "Alfonso Robledo",
+      "conteo": 2
+    },
+    {
+      "valor": "Angélica Quiroz Ortega",
+      "conteo": 2
+    },
+    {
+      "valor": "Anylú Hernández",
+      "conteo": 2
+    },
+    {
+      "valor": "Josefina Villarreal",
+      "conteo": 2
+    },
+    {
+      "valor": "Mario Alberto",
+      "conteo": 2
+    },
+    {
+      "valor": "Verónica de Jesús Váldez",
+      "conteo": 2
+    },
+    {
+      "valor": "Glen Zambrano",
+      "conteo": 2
+    },
+    {
+      "valor": "Jorge Luis Hinojosa",
+      "conteo": 2
+    },
+    {
+      "valor": "Mario Salinas",
+      "conteo": 2
+    },
+    {
+      "valor": "Ernesto  Carrillo Peña",
+      "conteo": 2
+    },
+    {
+      "valor": "Citlali Islas",
+      "conteo": 2
+    },
+    {
+      "valor": "Américo Garza",
+      "conteo": 2
+    },
+    {
+      "valor": "Laura López",
+      "conteo": 2
+    },
+    {
+      "valor": "Patricia Palacios",
+      "conteo": 2
+    },
+    {
+      "valor": "Anahí Díaz",
+      "conteo": 2
+    },
+    {
+      "valor": "Carlos Sánchez",
+      "conteo": 2
+    },
+    {
+      "valor": "Nancy Olguín",
+      "conteo": 2
+    },
+    {
+      "valor": "Mauricio Cantu",
+      "conteo": 2
+    },
+    {
+      "valor": "José López",
+      "conteo": 2
+    },
+    {
+      "valor": "Alejandro Ruiz",
+      "conteo": 1
+    },
+    {
+      "valor": "Jorge Castro",
+      "conteo": 1
+    },
+    {
+      "valor": "María Guadalupe",
+      "conteo": 1
+    },
+    {
+      "valor": "Carlos Rivera",
+      "conteo": 1
+    },
+    {
+      "valor": "Omega Vázquez",
+      "conteo": 1
+    },
+    {
+      "valor": "Lizette Tapia",
+      "conteo": 1
+    },
+    {
+      "valor": "Josué Nivardo Mena",
+      "conteo": 1
+    },
+    {
+      "valor": "Alberto Altamirano",
+      "conteo": 1
+    },
+    {
+      "valor": "Vanessa Sánchez",
+      "conteo": 1
+    },
+    {
+      "valor": "Bernardino Antelo",
+      "conteo": 1
+    },
+    {
+      "valor": "Norma Julieta del Río",
+      "conteo": 1
+    },
+    {
+      "valor": "Inganio Segura",
+      "conteo": 1
+    },
+    {
+      "valor": "Ruben Guajardo",
+      "conteo": 1
+    },
+    {
+      "valor": "Fuensanta Guerrero",
+      "conteo": 1
+    },
+    {
+      "valor": "Gerardo Vargas Landeros",
+      "conteo": 1
+    },
+    {
+      "valor": "Arturo Nahle",
+      "conteo": 1
+    },
+    {
+      "valor": "Iván Hernández",
+      "conteo": 1
+    },
+    {
+      "valor": "Claudeth Sarricolea",
+      "conteo": 1
+    },
+    {
+      "valor": "Juan Carlos Hernández",
+      "conteo": 1
+    },
+    {
+      "valor": "Marcial Rodríguez",
+      "conteo": 1
+    },
+    {
+      "valor": "Nadia Bernal",
+      "conteo": 1
+    },
+    {
+      "valor": "Julia Olguín",
+      "conteo": 1
+    },
+    {
+      "valor": "Ely Sallard",
+      "conteo": 1
+    },
+    {
+      "valor": "Anahí González",
+      "conteo": 1
+    },
+    {
+      "valor": "Andrea Navarro",
+      "conteo": 1
+    },
+    {
+      "valor": "Jorge Sanén",
+      "conteo": 1
+    },
+    {
+      "valor": "Omar del Valle",
+      "conteo": 1
+    },
+    {
+      "valor": "Carlos Augusto",
+      "conteo": 1
+    },
+    {
+      "valor": "Brightie Granados",
+      "conteo": 1
+    },
+    {
+      "valor": "Diego Castañón",
+      "conteo": 1
+    },
+    {
+      "valor": "Juan Ramiro",
+      "conteo": 1
+    },
+    {
+      "valor": "Blanca Angulo",
+      "conteo": 1
+    },
+    {
+      "valor": "Susana Barragán",
+      "conteo": 1
+    },
+    {
+      "valor": "Paloma Aguilar",
+      "conteo": 1
+    },
+    {
+      "valor": "Gabino Morales",
+      "conteo": 1
+    },
+    {
+      "valor": "Lorena Ruiz",
+      "conteo": 1
+    },
+    {
+      "valor": "Norma Otilia",
+      "conteo": 1
+    },
+    {
+      "valor": "Sara Salinas",
+      "conteo": 1
+    },
+    {
+      "valor": "Paúl Arce",
+      "conteo": 1
+    },
+    {
+      "valor": "Armando Reyna",
+      "conteo": 1
+    },
+    {
+      "valor": "Karina González",
+      "conteo": 1
+    },
+    {
+      "valor": "Gabriela Montoya",
+      "conteo": 1
+    },
+    {
+      "valor": "Laura Esquivel",
+      "conteo": 1
+    },
+    {
+      "valor": "Vanessa Caratachea",
+      "conteo": 1
+    },
+    {
+      "valor": "Itzé Camacho",
+      "conteo": 1
+    },
+    {
+      "valor": "Estrella Palacios",
+      "conteo": 1
+    },
+    {
+      "valor": "Paola Cota",
+      "conteo": 1
+    },
+    {
+      "valor": "José Paz",
+      "conteo": 1
+    },
+    {
+      "valor": "María Ángelica Granados",
+      "conteo": 1
+    },
+    {
+      "valor": "Javier López",
+      "conteo": 1
+    },
+    {
+      "valor": "Andrés Manuel López",
+      "conteo": 1
+    },
+    {
+      "valor": "Ana María Lomelí",
+      "conteo": 1
+    },
+    {
+      "valor": "José Ampelio Gutiérrez",
+      "conteo": 1
+    },
+    {
+      "valor": "Kenia López",
+      "conteo": 1
+    },
+    {
+      "valor": "Luis Mendoza",
+      "conteo": 1
+    },
+    {
+      "valor": "Alejandra Barrales",
+      "conteo": 1
+    },
+    {
+      "valor": "Carlos Orvañanos",
+      "conteo": 1
+    },
+    {
+      "valor": "Azucena Becerra",
+      "conteo": 1
+    },
+    {
+      "valor": "César Cravioto",
+      "conteo": 1
+    },
+    {
+      "valor": "Luis Quijano",
+      "conteo": 1
+    },
+    {
+      "valor": "Santiago Taboada",
+      "conteo": 1
+    },
+    {
+      "valor": "Israel Betanzos",
+      "conteo": 1
+    },
+    {
+      "valor": "Netzahualcóyotl Santillán",
+      "conteo": 1
+    },
+    {
+      "valor": "Arturo Carral",
+      "conteo": 1
+    },
+    {
+      "valor": "Adrián Ruvalcaba",
+      "conteo": 1
+    },
+    {
+      "valor": "Luisa María Alcalde",
+      "conteo": 1
+    },
+    {
+      "valor": "Mauricio Tabe",
+      "conteo": 1
+    },
+    {
+      "valor": "Salomón Chertorivski",
+      "conteo": 1
+    },
+    {
+      "valor": "Jesús Sesma",
+      "conteo": 1
+    },
+    {
+      "valor": "Jorge Meade",
+      "conteo": 1
+    },
+    {
+      "valor": "Alessandra Rojo",
+      "conteo": 1
+    },
+    {
+      "valor": "Omar Harfuch",
+      "conteo": 1
+    },
+    {
+      "valor": "Óscar Leggs",
+      "conteo": 1
+    },
+    {
+      "valor": "Eduardo Gattas",
+      "conteo": 1
+    },
+    {
+      "valor": "Dámaso Anaya",
+      "conteo": 1
+    },
+    {
+      "valor": "Tania Contreras",
+      "conteo": 1
+    },
+    {
+      "valor": "Carmen Canturrosas",
+      "conteo": 1
+    },
+    {
+      "valor": "Jesús Nader",
+      "conteo": 1
+    },
+    {
+      "valor": "Olga Sosa",
+      "conteo": 1
+    },
+    {
+      "valor": "Ramiro Ramos",
+      "conteo": 1
+    },
+    {
+      "valor": "César Verástegui",
+      "conteo": 1
+    },
+    {
+      "valor": "Mariana  Jiménez",
+      "conteo": 1
+    },
+    {
+      "valor": "César Jáuregui",
+      "conteo": 1
+    },
+    {
+      "valor": "Fermín Ordoñez",
+      "conteo": 1
+    },
+    {
+      "valor": "Ivonne Sabrina",
+      "conteo": 1
+    },
+    {
+      "valor": "Armando Órtiz",
+      "conteo": 1
+    },
+    {
+      "valor": "Waldo Fernández González",
+      "conteo": 1
+    },
+    {
+      "valor": "Tatiana Clouthier Carrillo",
+      "conteo": 1
+    },
+    {
+      "valor": "Andrés Mijes Llovera",
+      "conteo": 1
+    },
+    {
+      "valor": "Judith Díaz Delgado",
+      "conteo": 1
+    },
+    {
+      "valor": "Fernando Margáin Sada",
+      "conteo": 1
+    },
+    {
+      "valor": "Fernando Canales Stelzer",
+      "conteo": 1
+    },
+    {
+      "valor": "Daniel Carrillo Martínez",
+      "conteo": 1
+    },
+    {
+      "valor": "Adrián de la Garza Santos",
+      "conteo": 1
+    },
+    {
+      "valor": "Ildefonso Guajardo Villarreal",
+      "conteo": 1
+    },
+    {
+      "valor": "David de la Peña Marroquín",
+      "conteo": 1
+    },
+    {
+      "valor": "Mariana Rodríguez Cantú",
+      "conteo": 1
+    },
+    {
+      "valor": "Héctor García García",
+      "conteo": 1
+    },
+    {
+      "valor": "Martha Herrera González",
+      "conteo": 1
+    },
+    {
+      "valor": "Francisco Farias",
+      "conteo": 1
+    },
+    {
+      "valor": "Martha Márquez",
+      "conteo": 1
+    },
+    {
+      "valor": "Adriana Costanzo",
+      "conteo": 1
+    },
+    {
+      "valor": "José Torres",
+      "conteo": 1
+    },
+    {
+      "valor": "Vero Díaz",
+      "conteo": 1
+    },
+    {
+      "valor": "Delfino Suárez",
+      "conteo": 1
+    },
+    {
+      "valor": "Jesús Uribe",
+      "conteo": 1
+    },
+    {
+      "valor": "Gerardo Sansores",
+      "conteo": 1
+    },
+    {
+      "valor": "Ivonne Díaz",
+      "conteo": 1
+    },
+    {
+      "valor": "Mario Delgado",
+      "conteo": 1
+    },
+    {
+      "valor": "Gladyz Butana",
+      "conteo": 1
+    },
+    {
+      "valor": "Giulianna Burgarini",
+      "conteo": 1
+    },
+    {
+      "valor": "Mónica Guicho",
+      "conteo": 1
+    },
+    {
+      "valor": "Marvelly Constanzo",
+      "conteo": 1
+    },
+    {
+      "valor": "Luis Rodríguez",
+      "conteo": 1
+    },
+    {
+      "valor": "Juan Gim",
+      "conteo": 1
+    },
+    {
+      "valor": "Arturo Maximilino",
+      "conteo": 1
+    },
+    {
+      "valor": "Beatriz Robles",
+      "conteo": 1
+    },
+    {
+      "valor": "Javier Farias",
+      "conteo": 1
+    },
+    {
+      "valor": "Julián Lebarón",
+      "conteo": 1
+    },
+    {
+      "valor": "Jorge Lavalle",
+      "conteo": 1
+    },
+    {
+      "valor": "Gloria Núñez",
+      "conteo": 1
+    },
+    {
+      "valor": "Armando Ortiz",
+      "conteo": 1
+    },
+    {
+      "valor": "Rocío Bárcena",
+      "conteo": 1
+    },
+    {
+      "valor": "Jorge Nordhausen",
+      "conteo": 1
+    },
+    {
+      "valor": "Nora Amaya",
+      "conteo": 1
+    },
+    {
+      "valor": "Margarita Flores",
+      "conteo": 1
+    },
+    {
+      "valor": "Julia Olguin",
+      "conteo": 1
+    },
+    {
+      "valor": "Carlos Bautista",
+      "conteo": 1
+    },
+    {
+      "valor": "Jasmine Bugarin",
+      "conteo": 1
+    },
+    {
+      "valor": "Felipe Cantú",
+      "conteo": 1
+    },
+    {
+      "valor": "Alma Marroquín",
+      "conteo": 1
+    },
+    {
+      "valor": "Víctor Pérez Díaz",
+      "conteo": 1
+    },
+    {
+      "valor": "Paco Treviño",
+      "conteo": 1
+    },
+    {
+      "valor": "César Villarreal",
+      "conteo": 1
+    },
+    {
+      "valor": "Maribel Villalón",
+      "conteo": 1
+    },
+    {
+      "valor": "Jose Luis Garza",
+      "conteo": 1
+    },
+    {
+      "valor": "Nelly Garza",
+      "conteo": 1
+    },
+    {
+      "valor": "Raul lozano",
+      "conteo": 1
+    },
+    {
+      "valor": "Rocío Montalvo",
+      "conteo": 1
+    },
+    {
+      "valor": "Luis Cavazos",
+      "conteo": 1
+    },
+    {
+      "valor": "Alejandro Reyna",
+      "conteo": 1
+    },
+    {
+      "valor": "Paola García Yvés",
+      "conteo": 1
+    },
+    {
+      "valor": "Chelo Gálvez",
+      "conteo": 1
+    },
+    {
+      "valor": "Rodrigo García",
+      "conteo": 1
+    },
+    {
+      "valor": "Patricio Eugenio Zambrano de la Garza",
+      "conteo": 1
+    },
+    {
+      "valor": "Carlos Guevara",
+      "conteo": 1
+    },
+    {
+      "valor": "Laura Mónica",
+      "conteo": 1
+    },
+    {
+      "valor": "Mimi Barrientos",
+      "conteo": 1
+    },
+    {
+      "valor": "Anylú Bendición",
+      "conteo": 1
+    },
+    {
+      "valor": "Javier Martínez",
+      "conteo": 1
+    },
+    {
+      "valor": "Ana Reyes",
+      "conteo": 1
+    },
+    {
+      "valor": "David Olivo",
+      "conteo": 1
+    },
+    {
+      "valor": "Filiberto Flores",
+      "conteo": 1
+    },
+    {
+      "valor": "Tomás Díaz",
+      "conteo": 1
+    },
+    {
+      "valor": "María de Jesús",
+      "conteo": 1
+    },
+    {
+      "valor": "Esthela Silva",
+      "conteo": 1
+    },
+    {
+      "valor": "Rafa Alamaguer",
+      "conteo": 1
+    },
+    {
+      "valor": "Ana María García",
+      "conteo": 1
+    },
+    {
+      "valor": "Nancy Orguín",
+      "conteo": 1
+    },
+    {
+      "valor": "Dante Cantú",
+      "conteo": 1
+    },
+    {
+      "valor": "José Garza",
+      "conteo": 1
+    },
+    {
+      "valor": "Juana María Rodriguez",
+      "conteo": 1
+    },
+    {
+      "valor": "Oliverio Sepúlveda",
+      "conteo": 1
+    },
+    {
+      "valor": "Mario Soto",
+      "conteo": 1
+    },
+    {
+      "valor": "Arturo Castillo",
+      "conteo": 1
+    },
+    {
+      "valor": "Jorge Luis Hinojosa Ruiz",
+      "conteo": 1
+    },
+    {
+      "valor": "Luily Olivares",
+      "conteo": 1
+    },
+    {
+      "valor": "Margarita Martinez",
+      "conteo": 1
+    },
+    {
+      "valor": "Adriana Gallegos",
+      "conteo": 1
+    },
+    {
+      "valor": "Eduardo Leal",
+      "conteo": 1
+    },
+    {
+      "valor": "Alfonso Leal",
+      "conteo": 1
+    },
+    {
+      "valor": "Roberto Cruz",
+      "conteo": 1
+    },
+    {
+      "valor": "José Javier Martínez",
+      "conteo": 1
+    },
+    {
+      "valor": "Glen Villareal",
+      "conteo": 1
+    },
+    {
+      "valor": "Heliodoro Treviño",
+      "conteo": 1
+    },
+    {
+      "valor": "Federico Rojas",
+      "conteo": 1
+    },
+    {
+      "valor": "Homero Niño",
+      "conteo": 1
+    },
+    {
+      "valor": "Jero Quintanilla",
+      "conteo": 1
+    },
+    {
+      "valor": "Meme Valdez",
+      "conteo": 1
+    },
+    {
+      "valor": "Erika Monter",
+      "conteo": 1
+    },
+    {
+      "valor": "Pedro Salgado",
+      "conteo": 1
+    },
+    {
+      "valor": "Lily Olivares",
+      "conteo": 1
+    },
+    {
+      "valor": "Rubén Rangel",
+      "conteo": 1
+    },
+    {
+      "valor": "Esteban Cavazos",
+      "conteo": 1
+    },
+    {
+      "valor": "José  Garza",
+      "conteo": 1
+    },
+    {
+      "valor": "Juan Ruben Rangel",
+      "conteo": 1
+    },
+    {
+      "valor": "Homero Niño de Rivera",
+      "conteo": 1
+    },
+    {
+      "valor": "Javier González",
+      "conteo": 1
+    },
+    {
+      "valor": "Rodolfo Rodríguez",
+      "conteo": 1
+    },
+    {
+      "valor": "Adrián Hernández",
+      "conteo": 1
+    },
+    {
+      "valor": "Alejandro González",
+      "conteo": 1
+    },
+    {
+      "valor": "Jerónimo Quintanilla",
+      "conteo": 1
+    },
+    {
+      "valor": "Francisco Bustillos",
+      "conteo": 1
+    },
+    {
+      "valor": "Miguel Ávila",
+      "conteo": 1
+    },
+    {
+      "valor": "Jessica Góngora",
+      "conteo": 1
+    },
+    {
+      "valor": "Adrian de la Garza",
+      "conteo": 1
+    },
+    {
+      "valor": "Héctor Gracía",
+      "conteo": 1
+    },
+    {
+      "valor": "Jesús Ángel Nava",
+      "conteo": 1
+    },
+    {
+      "valor": "Cesar Garza",
+      "conteo": 1
+    },
+    {
+      "valor": "Juan Rubén Rangel",
+      "conteo": 1
+    },
+    {
+      "valor": "Óscar Flores",
+      "conteo": 1
+    },
+    {
+      "valor": "Óscar Cantú",
+      "conteo": 1
+    },
+    {
+      "valor": "Fernando Margaín",
+      "conteo": 1
+    },
+    {
+      "valor": "Francisco Javier",
+      "conteo": 1
+    },
+    {
+      "valor": "René García Beltrán",
+      "conteo": 1
+    },
+    {
+      "valor": "Andres Pintos",
+      "conteo": 1
+    },
+    {
+      "valor": "Citlali Sánchez",
+      "conteo": 1
+    },
+    {
+      "valor": "Saúl Alanís",
+      "conteo": 1
+    },
+    {
+      "valor": "José Luz",
+      "conteo": 1
+    },
+    {
+      "valor": "Francisco Treviño",
+      "conteo": 1
+    },
+    {
+      "valor": "José Manuel Valdez",
+      "conteo": 1
+    },
+    {
+      "valor": "Félix Arratia Cruz",
+      "conteo": 1
+    },
+    {
+      "valor": "Mario Alberto Salinas",
+      "conteo": 1
+    },
+    {
+      "valor": "Miguel Ángel García",
+      "conteo": 1
+    },
+    {
+      "valor": "Alicia Villalón",
+      "conteo": 1
+    },
+    {
+      "valor": "Nazario Marroquín",
+      "conteo": 1
+    },
+    {
+      "valor": "José Alejandro Reyna",
+      "conteo": 1
+    },
+    {
+      "valor": "Rafael Almaguer",
+      "conteo": 1
+    },
+    {
+      "valor": "Verónica de Jesús Valdés",
+      "conteo": 1
+    },
+    {
+      "valor": "Paco Cienfuegos",
+      "conteo": 1
+    },
+    {
+      "valor": "Arturo Salinas",
+      "conteo": 1
+    },
+    {
+      "valor": "Lorena Garza",
+      "conteo": 1
+    },
+    {
+      "valor": "Lorena De la Garza",
+      "conteo": 1
+    }
+  ],
+  "posiblesDuplicados": {
+    "candidatos": [
+      {
+        "a": "Adrián de la Garza",
+        "b": "Adrian de la Garza",
+        "distancia": 0
+      },
+      {
+        "a": "Fernando Margáin",
+        "b": "Fernando Margain",
+        "distancia": 0
+      },
+      {
+        "a": "Fernando Margáin",
+        "b": "Fernando Margaín",
+        "distancia": 0
+      },
+      {
+        "a": "César Garza",
+        "b": "Cesar Garza",
+        "distancia": 0
+      },
+      {
+        "a": "Judith Díaz",
+        "b": "Judith Diaz",
+        "distancia": 0
+      },
+      {
+        "a": "Lorena de la Garza",
+        "b": "Lorena De la Garza",
+        "distancia": 0
+      },
+      {
+        "a": "Mario delgado",
+        "b": "Mario Delgado",
+        "distancia": 0
+      },
+      {
+        "a": "Beatríz Robles",
+        "b": "Beatriz Robles",
+        "distancia": 0
+      },
+      {
+        "a": "Rubén Guajardo",
+        "b": "Ruben Guajardo",
+        "distancia": 0
+      },
+      {
+        "a": "Gloria Nuñez",
+        "b": "Gloria Núñez",
+        "distancia": 0
+      },
+      {
+        "a": "Felipe de Jesús Cantú",
+        "b": "Felipe de Jesús Cántu",
+        "distancia": 0
+      },
+      {
+        "a": "Raúl Lozano",
+        "b": "Raul lozano",
+        "distancia": 0
+      },
+      {
+        "a": "José Luis Garza",
+        "b": "Jose Luis Garza",
+        "distancia": 0
+      },
+      {
+        "a": "Fernando Margain",
+        "b": "Fernando Margaín",
+        "distancia": 0
+      },
+      {
+        "a": "Mauricio Cantú",
+        "b": "Mauricio Cantu",
+        "distancia": 0
+      },
+      {
+        "a": "Paúl Ospital",
+        "b": "Paul Ospital",
+        "distancia": 0
+      },
+      {
+        "a": "Oscar Flores",
+        "b": "Óscar Flores",
+        "distancia": 0
+      },
+      {
+        "a": "Víctor Guerrero",
+        "b": "Victor Guerrero",
+        "distancia": 0
+      },
+      {
+        "a": "Margarita Martínez",
+        "b": "Margarita Martinez",
+        "distancia": 0
+      },
+      {
+        "a": "Argelia Núñez",
+        "b": "Argelia Nuñez",
+        "distancia": 0
+      },
+      {
+        "a": "Alvaro Suárez",
+        "b": "Álvaro Suárez",
+        "distancia": 0
+      },
+      {
+        "a": "Oscar Cantú",
+        "b": "Óscar Cantú",
+        "distancia": 0
+      },
+      {
+        "a": "Andrés Pintos",
+        "b": "Andres Pintos",
+        "distancia": 0
+      },
+      {
+        "a": "Javier Farías",
+        "b": "Javier Farias",
+        "distancia": 0
+      },
+      {
+        "a": "Julia Olguín",
+        "b": "Julia Olguin",
+        "distancia": 0
+      },
+      {
+        "a": "Armando Órtiz",
+        "b": "Armando Ortiz",
+        "distancia": 0
+      },
+      {
+        "a": "Juan Ruben Rangel",
+        "b": "Juan Rubén Rangel",
+        "distancia": 0
+      },
+      {
+        "a": "Jasmin Bugarín",
+        "b": "Jasmine Bugarin",
+        "distancia": 1
+      },
+      {
+        "a": "Gladyz Butanda",
+        "b": "Gladyz Butana",
+        "distancia": 1
+      },
+      {
+        "a": "Adriana Hernández",
+        "b": "Adrián Hernández",
+        "distancia": 1
+      },
+      {
+        "a": "Miguel Varela",
+        "b": "Miguel  Varela",
+        "distancia": 1
+      },
+      {
+        "a": "Mariana Jiménez",
+        "b": "Mariana  Jiménez",
+        "distancia": 1
+      },
+      {
+        "a": "Marvelly Costanzo",
+        "b": "Marvelly Constanzo",
+        "distancia": 1
+      },
+      {
+        "a": "Franciso Treviño",
+        "b": "Francisco Treviño",
+        "distancia": 1
+      },
+      {
+        "a": "Américo Garzas",
+        "b": "Américo Garza",
+        "distancia": 1
+      },
+      {
+        "a": "Lorenza Gómez",
+        "b": "Lorena Gómez",
+        "distancia": 1
+      },
+      {
+        "a": "Norma Amaya",
+        "b": "Nora Amaya",
+        "distancia": 1
+      },
+      {
+        "a": "Giulianna Bugarini",
+        "b": "Giulianna Burgarini",
+        "distancia": 1
+      },
+      {
+        "a": "Verónica de Jesús Váldez",
+        "b": "Verónica de Jesús Valdés",
+        "distancia": 1
+      },
+      {
+        "a": "Nancy Olguín",
+        "b": "Nancy Orguín",
+        "distancia": 1
+      },
+      {
+        "a": "José Garza",
+        "b": "José  Garza",
+        "distancia": 1
+      },
+      {
+        "a": "Luily Olivares",
+        "b": "Lily Olivares",
+        "distancia": 1
+      },
+      {
+        "a": "Héctor García",
+        "b": "Héctor Gracía",
+        "distancia": 2
+      },
+      {
+        "a": "Manuel Cota",
+        "b": "Manuel Scott",
+        "distancia": 2
+      },
+      {
+        "a": "Annia Gómez",
+        "b": "Ana Gómez",
+        "distancia": 2
+      },
+      {
+        "a": "Otro",
+        "b": "Otro/a",
+        "distancia": 2
+      },
+      {
+        "a": "Bernardo Antelo",
+        "b": "Bernardino Antelo",
+        "distancia": 2
+      },
+      {
+        "a": "José Gómez",
+        "b": "José López",
+        "distancia": 2
+      },
+      {
+        "a": "Lilia Olivares",
+        "b": "Lily Olivares",
+        "distancia": 2
+      },
+      {
+        "a": "Ana González",
+        "b": "Anahí González",
+        "distancia": 2
+      },
+      {
+        "a": "Ivonne Sabinna",
+        "b": "Ivonne Sabrina",
+        "distancia": 2
+      },
+      {
+        "a": "José Paz",
+        "b": "José Luz",
+        "distancia": 2
+      }
+    ],
+    "partidos": [
+      {
+        "a": "Morena  - PVEM - PT",
+        "b": "Morena - PVEM - PT",
+        "distancia": 1
+      },
+      {
+        "a": "Morena  - PT",
+        "b": "Morena - PT",
+        "distancia": 1
+      }
+    ],
+    "encuestadoras": [
+      {
+        "a": "Metametrics",
+        "b": "MetaMetrics",
+        "distancia": 0
+      },
+      {
+        "a": "Statistical Research \nCorporation",
+        "b": "Statistical Research Corporation",
+        "distancia": 1
+      },
+      {
+        "a": "Cripeso",
+        "b": "Cipreso",
+        "distancia": 2
+      },
+      {
+        "a": "La Encuesta Mx",
+        "b": "LaEncuesta.Mx",
+        "distancia": 2
+      }
+    ],
+    "municipios": [],
+    "entidades": []
+  }
+}

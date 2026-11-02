@@ -1,0 +1,70 @@
+{
+  "GUBERNATURA": {
+    "sheetTab": "Gobernador",
+    "locationField": "Entidad",
+    "writeRange": "A:N",
+    "columns": [
+      "Fecha",
+      "Encuestadora + Fecha",
+      "MES",
+      "Encuestadora",
+      "Metodología",
+      "Sub-tipo",
+      "Escenario Partido",
+      "Escenario Candidato",
+      "Alianza/Partido",
+      "Candidato",
+      "%Confianza",
+      "Partido Ganador",
+      "Candidato Ganador",
+      "Entidad"
+    ],
+    "untouchedColumns": []
+  },
+  "ALCALDES": {
+    "sheetTab": "Alcaldes",
+    "locationField": "Municipio",
+    "writeRange": "A:N",
+    "columns": [
+      "Fecha",
+      "Encuestadora + Fecha",
+      "MES",
+      "Encuestadora",
+      "Metodología",
+      "Sub-tipo",
+      "Escenario Partido",
+      "Escenario Candidato",
+      "Municipio",
+      "Alianza/Partido",
+      "Candidato",
+      "%Confianza",
+      "Partido Ganador",
+      "Candidato Ganador"
+    ],
+    "untouchedColumns": []
+  },
+  "ALCALDES_OTROS_ESTADOS": {
+    "sheetTab": "Alcaldes otros estados",
+    "locationField": "Municipio",
+    "estadoField": "Estado",
+    "writeRange": "A:O",
+    "columns": [
+      "Fecha",
+      "Encuestadora + Fecha",
+      "MES",
+      "Encuestadora",
+      "Metodología",
+      "Sub-tipo",
+      "Escenario Partido",
+      "Escenario Candidato",
+      "Estado",
+      "Municipio",
+      "Alianza/Partido",
+      "Candidato",
+      "%Confianza",
+      "Partido Ganador",
+      "Candidato Ganador"
+    ],
+    "untouchedColumns": []
+  }
+}
