@@ -91,7 +91,7 @@ function agruparEnEscenarios(columnas: string[], filas: string[][]): EscenarioAg
 
 // Trae y agrupa las encuestas guardadas. Server-only: usa la service_role
 // key (la misma que ya usa /api/scan), nunca se expone al navegador.
-export async function listarEncuestas(limite = 500): Promise<EncuestaResumen[]> {
+export async function listarEncuestas(limite = 5000): Promise<EncuestaResumen[]> {
   const supabase = getSupabaseClient();
   const { data, error } = await supabase
     .from("encuestas")
