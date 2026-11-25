@@ -84,7 +84,8 @@ export default function DashboardClient({ encuestas }: Props) {
           <select value={destino} onChange={(e) => setDestino(e.target.value)}>
             <option value={TODOS}>Todos</option>
             <option value="GUBERNATURA">Gubernatura</option>
-            <option value="ALCALDES">Alcaldes</option>
+            <option value="ALCALDES">Alcaldes (Nuevo León)</option>
+            <option value="ALCALDES_OTROS_ESTADOS">Alcaldes (otros estados)</option>
           </select>
         </div>
         <div className="campo">
@@ -126,7 +127,11 @@ export default function DashboardClient({ encuestas }: Props) {
               >
                 <div className="item-encuesta-fila1">
                   <span className={`chip-destino ${e.destino === "GUBERNATURA" ? "gub" : "alc"}`}>
-                    {e.destino === "GUBERNATURA" ? "Gubernatura" : "Alcaldes"}
+                    {e.destino === "GUBERNATURA"
+                      ? "Gubernatura"
+                      : e.destino === "ALCALDES_OTROS_ESTADOS"
+                        ? "Alcaldes · otros estados"
+                        : "Alcaldes"}
                   </span>
                   <span className="item-encuesta-ubicacion">{e.ubicacion || "—"}</span>
                 </div>

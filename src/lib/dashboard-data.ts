@@ -16,7 +16,7 @@ export type EscenarioAgrupado = {
 
 export type EncuestaResumen = {
   id: string;
-  destino: "GUBERNATURA" | "ALCALDES";
+  destino: "GUBERNATURA" | "ALCALDES" | "ALCALDES_OTROS_ESTADOS";
   ubicacion: string;
   fecha: string;
   encuestadora: string;
