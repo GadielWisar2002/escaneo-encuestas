@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { listarEncuestas } from "@/lib/dashboard-data";
-import DashboardClient from "@/components/DashboardClient";
+import { cargarDatosDashboard } from "@/lib/dashboard-data";
+import DashboardApp from "@/components/dashboard/DashboardApp";
 
 // Sin esto, Next.js prerenderiza la página en el build y las encuestas
 // quedan congeladas desde ese momento — cada visita debe traer datos
@@ -8,20 +8,25 @@ import DashboardClient from "@/components/DashboardClient";
 export const dynamic = "force-dynamic";
 
 // Server component: lee Supabase con la service_role key en el servidor
-// (igual que /api/scan) y le pasa los datos ya listos al cliente. La key
-// nunca llega al navegador.
+// (igual que /api/scan), normaliza los datos y le pasa al cliente solo lo
+// necesario para las gráficas. La key nunca llega al navegador.
 export default async function DashboardPage() {
-  const encuestas = await listarEncuestas();
+  const datos = await cargarDatosDashboard();
 
   return (
-    <div className="contenedor">
+    <div className="contenedor" style={{ maxWidth: 1280 }}>
       <div className="encabezado-dashboard">
-        <h1 style={{ margin: 0 }}>Dashboard de Encuestas</h1>
+        <div>
+          <h1 style={{ margin: 0 }}>Monitoreo de Encuestas</h1>
+          <p style={{ margin: "2px 0 0", color: "var(--text-muted)", fontSize: "0.9rem" }}>
+            {datos.encuestas.length.toLocaleString("es-MX")} encuestas en Supabase
+          </p>
+        </div>
         <Link href="/" className="btn-secundario">
           ← Escanear
         </Link>
       </div>
-      <DashboardClient encuestas={encuestas} />
+      <DashboardApp datos={datos} />
     </div>
   );
 }
