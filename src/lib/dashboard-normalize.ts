@@ -149,6 +149,9 @@ const ESTADO_DE_MUNICIPIO: Record<string, string> = {
   lapaz: "Baja California Sur",
   loscabos: "Baja California Sur",
   mexicali: "Baja California",
+  ensenada: "Baja California",
+  tijuana: "Baja California",
+  tecate: "Baja California",
   reynosa: "Tamaulipas",
 };
 

@@ -67,7 +67,7 @@ export function BarrasPromedio({ datos, colorear }: { datos: Promedio[]; colorea
                   Promedio <strong>{pct(p.promedio)}</strong>
                 </div>
                 <div className="db-tenue">
-                  {p.n} {p.n === 1 ? "medición" : "mediciones"}
+                  {p.n} {p.n === 1 ? "medición" : "mediciones"} de {p.casas} {p.casas === 1 ? "casa" : "casas"}
                 </div>
               </div>
             );

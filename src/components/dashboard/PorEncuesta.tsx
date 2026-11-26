@@ -6,7 +6,7 @@ import { fechaCorta, nombreMes, textoFecha, unicos } from "@/lib/dashboard-calc"
 import { colorPartido, GRIS_SENTINELA } from "@/lib/colores";
 import { Selector } from "./Controles";
 
-const TIPO_TEXTO = { Multipartidista: "Por partido", Careos: "Careo", Interna: "Interna", Otro: "Otro" } as const;
+const TIPO_TEXTO = { Multipartidista: "Por partido", Careos: "Careo", Interna: "Interna", Aspirante: "Un aspirante", Otro: "Otro" } as const;
 
 export default function PorEncuesta({ datos }: { datos: DatosDashboard }) {
   const [modulo, setModulo] = useState("");

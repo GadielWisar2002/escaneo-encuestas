@@ -1,4 +1,5 @@
 import { getSupabaseClient } from "./supabase";
+import { aliasCandidato } from "./alias-candidatos";
 import type { DatosDashboard, EncuestaMeta, Escenario, Resultado } from "./dashboard-types";
 import {
   bloque,
@@ -62,7 +63,7 @@ export async function cargarDatosDashboard(): Promise<DatosDashboard> {
   };
   for (const r of filas) {
     const ic = (r.columnas ?? []).findIndex((c) => c.trim() === "Candidato");
-    if (ic >= 0) for (const f of r.filas ?? []) contar(candidatoCanon(f[ic] ?? ""));
+    if (ic >= 0) for (const f of r.filas ?? []) contar(aliasCandidato(candidatoCanon(f[ic] ?? "")));
   }
   const formaCandidato = new Map<string, string>();
   for (const [k, m] of formas) formaCandidato.set(k, [...m.entries()].sort((a, b) => b[1] - a[1])[0][0]);
@@ -137,12 +138,19 @@ export async function cargarDatosDashboard(): Promise<DatosDashboard> {
     for (const indices of grupos.values()) {
       const f0 = datos[indices[0]];
       let tipo = tipoCanon(iTipo >= 0 ? f0[iTipo] ?? "" : "");
-      const filasEsc = indices.map((i) => {
+      // Las proporciones (0.76 en vez de 76%) se detectan por escenario: una misma encuesta puede
+      // traer un escenario en porcentaje y otro en proporción.
+      const pctsEsc = porcentajes(indices.map((i) => (iPct >= 0 ? datos[i][iPct] : "")));
+      let filasEsc = indices.map((i, j) => {
         const p = partidoCanon(iPart >= 0 ? datos[i][iPart] ?? "" : "");
-        const cc = candidatoCanon(iCand >= 0 ? datos[i][iCand] ?? "" : "");
+        const cc = aliasCandidato(candidatoCanon(iCand >= 0 ? datos[i][iCand] ?? "" : ""));
         const c = cc ? formaCandidato.get(clave(cc)) ?? cc : "";
-        return { p, c, v: pcts[i], sent: esSentinela(p, c) };
+        return { p, c, v: pctsEsc[j], sent: esSentinela(p, c) };
       });
+      // Una fila con 100% dentro de un escenario con más aspirantes es un error de captura (otra
+      // medición pegada en el mismo bloque): se descarta para no inflar ni sumar 200%.
+      if (tipo === "Interna" && filasEsc.filter((x) => !x.sent).length > 2)
+        filasEsc = filasEsc.filter((x) => x.sent || x.v === null || x.v < 99.5);
       const reales = filasEsc.filter((x) => !x.sent);
       const conCandidato = reales.filter((x) => x.c).length;
       const sujeto: Escenario["sujeto"] = conCandidato > reales.length / 2 ? "candidato" : "partido";
@@ -154,12 +162,21 @@ export async function cargarDatosDashboard(): Promise<DatosDashboard> {
       let partidoInterna = "";
       if (tipo === "Interna") {
         partidoInterna = partidoCanon(iEscP >= 0 ? f0[iEscP] ?? "" : "");
-        if (!partidoInterna || partidoInterna.includes(",")) {
-          const conteo = new Map<string, number>();
-          for (const x of reales) if (x.p) conteo.set(x.p, (conteo.get(x.p) ?? 0) + 1);
-          partidoInterna = [...conteo.entries()].sort((a, b) => b[1] - a[1])[0]?.[0] ?? "";
-        }
-        partidoInterna = bloque(partidoInterna);
+        const conteo = new Map<string, number>();
+        for (const x of reales) if (x.p) conteo.set(x.p, (conteo.get(x.p) ?? 0) + 1);
+        const [masComun, veces] = [...conteo.entries()].sort((a, b) => b[1] - a[1])[0] ?? ["", 0];
+        // Si el escenario no dice el partido, o todos los aspirantes son de otro partido distinto
+        // al que dice el escenario (p. ej. "PES" con aspirantes del PVEM), manda el de los aspirantes.
+        const coincide = (a: string, b: string) => a === b || a.split("-").includes(b) || b.split("-").includes(a);
+        if (!partidoInterna || partidoInterna.includes(",")) partidoInterna = masComun;
+        else if (masComun && veces >= 2 && veces === reales.length && !coincide(masComun, partidoInterna))
+          partidoInterna = masComun;
+        // Con un solo aspirante (contra "otro" o "no sabe") no es una interna: es la medición de
+        // ese aspirante y se muestra aparte.
+        if (reales.length < 2) tipo = "Aspirante";
+        // Morena con sus aliados (PT, PVEM) postula a gente de Morena: es la misma interna. Una
+        // alianza como PAN-PRI, en cambio, mezcla aspirantes de ambos partidos y es otra contienda.
+        if (bloque(partidoInterna) === "Morena") partidoInterna = "Morena";
       }
 
       let ganador: string | null = null;
@@ -189,69 +206,162 @@ export async function cargarDatosDashboard(): Promise<DatosDashboard> {
   }
 
   unificarNombres(encuestas, escenarios, resultados);
+  completarPartidoInterna(encuestas, escenarios, resultados);
   return { encuestas, escenarios, resultados };
 }
 
+// Internas sin partido en la captura: se deduce de otras internas del mismo lugar donde aparecen
+// esos mismos aspirantes.
+function completarPartidoInterna(encuestas: EncuestaMeta[], escenarios: Escenario[], resultados: Resultado[]) {
+  const lugar = (s: number) => {
+    const e = encuestas[escenarios[s].e];
+    return `${e.modulo}|${e.estado}|${e.municipio}`;
+  };
+  const conPartido = (t: string) => t === "Interna" || t === "Aspirante";
+  const partidosDe = new Map<string, Map<string, number>>(); // "lugar|aspirante" -> partido -> veces
+  const porEsc = new Map<number, Resultado[]>();
+  for (const r of resultados) porEsc.set(r.s, [...(porEsc.get(r.s) ?? []), r]);
+  escenarios.forEach((esc, s) => {
+    if (!conPartido(esc.tipo) || !esc.partidoInterna) return;
+    for (const r of porEsc.get(s) ?? []) {
+      if (r.sent || !r.c) continue;
+      const k = `${lugar(s)}|${r.c}`;
+      const m = partidosDe.get(k) ?? new Map<string, number>();
+      m.set(esc.partidoInterna, (m.get(esc.partidoInterna) ?? 0) + 1);
+      partidosDe.set(k, m);
+    }
+  });
+  escenarios.forEach((esc, s) => {
+    if (!conPartido(esc.tipo) || esc.partidoInterna) return;
+    const votos = new Map<string, number>();
+    for (const r of porEsc.get(s) ?? [])
+      for (const [p, n] of partidosDe.get(`${lugar(s)}|${r.c}`) ?? []) votos.set(p, (votos.get(p) ?? 0) + n);
+    esc.partidoInterna = [...votos].sort((x, y) => y[1] - x[1])[0]?.[0] ?? "Sin partido";
+  });
+}
+
+// Diminutivos frecuentes: "Toño Astiazarán" es "Antonio Astiazarán".
+const DIMINUTIVOS: Record<string, string> = {
+  tono: "antonio", tony: "antonio", paty: "patricia", pati: "patricia", ma: "maria", pancho: "francisco",
+  paco: "francisco", pepe: "jose", chuy: "jesus", lalo: "eduardo", memo: "guillermo", nacho: "ignacio",
+  quique: "enrique", lupe: "guadalupe",
+};
+// "de la Torre", "de Hoyos": las partículas no cuentan como palabras del nombre.
+const PARTICULAS = new Set(["de", "la", "del", "los", "las", "y", "el"]);
+const sinAcentos = (s: string) => s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 const tokens = (nombre: string) =>
-  nombre
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[̀-ͯ]/g, "")
+  sinAcentos(nombre)
     .replace(/["'“”‘’()]/g, " ")
     .split(/[^a-z]+/)
-    .filter(Boolean);
+    .filter((t) => t && !PARTICULAS.has(t))
+    .map((t) => DIMINUTIVOS[t] ?? t);
+// Palabras entre comillas: el apodo ("Pato", "Fito", "El Abuelo").
+const apodos = (nombre: string) =>
+  [...sinAcentos(nombre).matchAll(/["“”']([^"“”']+)["“”']/g)].flatMap((m) => m[1].split(/[^a-z]+/).filter(Boolean));
 
 // Dos palabras se consideran la misma si son iguales o, en palabras largas, difieren en una
 // sola letra (errores de captura como "Benelly"/"Bennelly" o "Villagranal"/"Villagrana").
 function parecidas(a: string, b: string): boolean {
   if (a === b) return true;
+  // Una inicial ("López C.") equivale a la palabra que empieza con esa letra.
+  if (a.length === 1 || b.length === 1) return a[0] === b[0];
   if (Math.min(a.length, b.length) < 5 || Math.abs(a.length - b.length) > 1) return false;
   let i = 0;
   while (i < a.length && a[i] === b[i]) i++;
   const [x, y] = a.length >= b.length ? [a, b] : [b, a];
   return x.slice(i + 1) === y.slice(i + (x.length === y.length ? 1 : 0));
 }
-const contiene = (largo: string[], corto: string[]) => corto.every((t) => largo.some((u) => parecidas(u, t)));
+// ¿Están todas las palabras de "corto" en "largo"? Cada palabra de "largo" se usa una sola vez,
+// para que "Garza Garza" no quepa en "Garza Ochoa".
+function contiene(largo: string[], corto: string[]): boolean {
+  const libres = [...largo];
+  for (const t of corto) {
+    const i = libres.findIndex((u) => parecidas(u, t));
+    if (i < 0) return false;
+    libres.splice(i, 1);
+  }
+  return true;
+}
 
-// Dentro de un mismo estado/municipio, "Verónica Díaz" y "Verónica Díaz Robles" son la misma persona:
-// si las palabras de un nombre están todas contenidas en otro más completo (y solo en uno), se
-// unifican al nombre completo.
+// Registro de las unificaciones hechas en la última carga, para auditarlas.
+export let unificaciones: { ubicacion: string; de: string; a: string }[] = [];
+
+// Dentro de un mismo estado/municipio, una persona aparece con distintas versiones de su nombre
+// según la casa: "Fernando Margáin", "Fernando Margáin Sada", "Fernando Margáin Berlanga".
+// Si un nombre está contenido en otro más completo se consideran la misma persona; las versiones
+// que quedan conectadas así se unifican a la forma que más se usa.
 function unificarNombres(encuestas: EncuestaMeta[], escenarios: Escenario[], resultados: Resultado[]) {
   const ubicacionDe = (s: number) => {
     const e = encuestas[escenarios[s].e];
     return `${e.modulo}|${e.estado}|${e.municipio}`;
   };
-  const nombresPorUbicacion = new Map<string, Set<string>>();
+  const conteos = new Map<string, Map<string, number>>();
   for (const r of resultados) {
     if (!r.c || r.sent) continue;
     const k = ubicacionDe(r.s);
-    const set = nombresPorUbicacion.get(k) ?? new Set<string>();
-    set.add(r.c);
-    nombresPorUbicacion.set(k, set);
+    const m = conteos.get(k) ?? new Map<string, number>();
+    m.set(r.c, (m.get(r.c) ?? 0) + 1);
+    conteos.set(k, m);
   }
 
-  const mapa = new Map<string, string>(); // "ubicación|nombre" -> nombre completo
-  for (const [ub, set] of nombresPorUbicacion) {
-    const nombres = [...set].map((n) => ({ n, t: tokens(n) }));
+  const mapa = new Map<string, string>(); // "ubicación|nombre" -> nombre unificado
+  for (const [ub, m] of conteos) {
+    const nombres = [...m.keys()].map((n) => {
+      const t = tokens(n);
+      const ap = apodos(n);
+      const sinApodo = t.filter((x) => !ap.includes(x));
+      // Nombres de pila: todo menos los dos apellidos (o el único apellido), más el apodo.
+      const pila = [...sinApodo.slice(0, Math.max(1, sinApodo.length - 2)), ...ap];
+      const apellidos = sinApodo.slice(Math.max(1, sinApodo.length - 2));
+      return { n, t, pila, apellidos };
+    });
+    const padre = new Map(nombres.map((x) => [x.n, x.n]));
+    const raiz = (n: string): string => (padre.get(n) === n ? n : raiz(padre.get(n)!));
+    const abarca = (a: (typeof nombres)[number], b: (typeof nombres)[number]) => {
+      if (a === b) return false;
+      // Misma longitud y cada palabra igual salvo una letra: error de captura ("Fregoso"/"Fregozo").
+      if (b.t.length === a.t.length) return a.t.every((x, i) => parecidas(x, b.t[i]));
+      if (b.t.length < a.t.length || !contiene(b.t, a.t)) return false;
+      // Con solo nombre y apellido ("Pato Zambrano", "Cristina Lupién") se exige que el primero sea
+      // un nombre de pila o el apodo del otro, y el último uno de sus apellidos. Con tres palabras
+      // o más basta que todas estén ("Martín López Cisneros" ⊂ "José Martín López Cisneros").
+      if (a.t.length < 3) {
+        if (!b.pila.some((x) => parecidas(x, a.t[0]))) return false;
+        if (!b.t.slice(1).some((x) => parecidas(x, a.t[a.t.length - 1]))) return false;
+      }
+      return true;
+    };
+    // Dos versiones largas pueden ser la misma persona si una contiene a la otra, o si empiezan con
+    // el mismo nombre y comparten algún apellido ("Paola Iveth Gárate" / "Paola Gárate Valenzuela",
+    // "Margáin Sada" / "Margáin Berlanga"). "Juan Alberto Valdivia Alvarado" y "Jesús Alberto
+    // Alvarado Aragón" no: empiezan distinto.
+    const compatibles = (x: (typeof nombres)[number], y: (typeof nombres)[number]) =>
+      abarca(x, y) ||
+      abarca(y, x) ||
+      (parecidas(x.t[0], y.t[0]) && x.t.slice(1).some((w) => y.t.slice(1).some((z) => parecidas(w, z))));
     for (const a of nombres) {
       if (a.t.length < 2) continue;
-      const contienen = nombres.filter(
-        (b) => b.t.length > a.t.length && parecidas(b.t[0], a.t[0]) && contiene(b.t, a.t),
-      );
-      if (!contienen.length) continue;
-      // Si hay varias versiones más largas, solo se unifica cuando todas son la misma persona,
-      // es decir, la más completa contiene a las demás.
-      const masLarga = contienen.reduce((x, y) => (y.t.length > x.t.length ? y : x));
-      if (contienen.every((b) => contiene(masLarga.t, b.t))) mapa.set(`${ub}|${a.n}`, masLarga.n);
+      const mayores = nombres.filter((b) => abarca(a, b));
+      if (!mayores.length) continue;
+      // Si el nombre corto encaja en personas distintas ("Alberto Alvarado" en "Juan Alberto Valdivia
+      // Alvarado" y en "Jesús Alberto Alvarado Aragón") es ambiguo y no se une.
+      if (!mayores.every((x) => mayores.every((y) => x === y || compatibles(x, y)))) continue;
+      for (const b of mayores) padre.set(raiz(a.n), raiz(b.n));
+    }
+    const grupos = new Map<string, string[]>();
+    for (const x of nombres) grupos.set(raiz(x.n), [...(grupos.get(raiz(x.n)) ?? []), x.n]);
+    for (const g of grupos.values()) {
+      if (g.length < 2) continue;
+      const elegido = [...g].sort((x, y) => tokens(y).length - tokens(x).length || m.get(y)! - m.get(x)!)[0];
+      for (const n of g) if (n !== elegido) mapa.set(`${ub}|${n}`, elegido);
     }
   }
+  unificaciones = [...mapa].map(([k, a]) => {
+    const [, estado, municipio, de] = k.split("|");
+    return { ubicacion: municipio ? `${municipio}, ${estado}` : estado, de, a };
+  });
   if (!mapa.size) return;
-  // Resolver cadenas (A -> B -> C) al nombre final.
-  const resolver = (ub: string, n: string) => {
-    let actual = n;
-    for (let i = 0; i < 5 && mapa.has(`${ub}|${actual}`); i++) actual = mapa.get(`${ub}|${actual}`)!;
-    return actual;
-  };
+  const resolver = (ub: string, n: string) => mapa.get(`${ub}|${n}`) ?? n;
   for (const r of resultados) if (r.c && !r.sent) r.c = resolver(ubicacionDe(r.s), r.c);
   escenarios.forEach((esc, s) => {
     if (esc.ganador && esc.sujeto === "candidato") esc.ganador = resolver(ubicacionDe(s), esc.ganador);

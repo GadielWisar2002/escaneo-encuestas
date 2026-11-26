@@ -22,7 +22,8 @@ export type Punto = {
   sinFecha: boolean;
 };
 
-const ORDEN_TIPOS: Tipo[] = ["Multipartidista", "Careos", "Interna", "Otro"];
+const ORDEN_TIPOS: Tipo[] = ["Multipartidista", "Careos", "Interna", "Aspirante", "Otro"];
+const CON_PARTIDO: Tipo[] = ["Interna", "Aspirante"];
 
 export const unicos = <T,>(xs: T[]) => [...new Set(xs)];
 
@@ -44,11 +45,11 @@ export function tiposDisponibles(d: DatosDashboard, idx: number[]): Tipo[] {
   return ORDEN_TIPOS.filter((x) => t.has(x));
 }
 
-export function internasDisponibles(d: DatosDashboard, idx: number[]): string[] {
+export function internasDisponibles(d: DatosDashboard, idx: number[], tipo: Tipo | "" = "Interna"): string[] {
   const conteo = new Map<string, number>();
   for (const i of idx) {
     const esc = d.escenarios[i];
-    if (esc.tipo === "Interna" && esc.partidoInterna) conteo.set(esc.partidoInterna, (conteo.get(esc.partidoInterna) ?? 0) + 1);
+    if (esc.tipo === tipo && esc.partidoInterna) conteo.set(esc.partidoInterna, (conteo.get(esc.partidoInterna) ?? 0) + 1);
   }
   return [...conteo.entries()].sort((a, b) => b[1] - a[1]).map(([p]) => p);
 }
@@ -57,7 +58,7 @@ export function porTipo(d: DatosDashboard, idx: number[], f: Pick<Filtros, "tipo
   return idx.filter((i) => {
     const esc = d.escenarios[i];
     if (f.tipo && esc.tipo !== f.tipo) return false;
-    if (f.tipo === "Interna" && f.interna && esc.partidoInterna !== f.interna) return false;
+    if (f.tipo && CON_PARTIDO.includes(f.tipo) && f.interna && esc.partidoInterna !== f.interna) return false;
     return true;
   });
 }
@@ -71,37 +72,63 @@ export function porCasaYMes(d: DatosDashboard, idx: number[], f: Pick<Filtros, "
   });
 }
 
-export function puntos(d: DatosDashboard, idx: number[]): Punto[] {
+// "efectiva": porcentaje entre quienes sí eligen una opción (sin "ninguno" ni "no sabe"). Así se
+// comparan casas que publican sobre bases distintas: unas reparten el 100% solo entre aspirantes
+// y otras incluyen a los indecisos. "publicada": la cifra tal como la dio cada casa.
+export type Base = "efectiva" | "publicada";
+
+const sinAcentos = (s: string) => s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+export const esIndeciso = (r: { p: string; c: string; sent: boolean }) => {
+  if (!r.sent) return false;
+  const t = sinAcentos(`${r.p} ${r.c}`);
+  return t.includes("ningun") || t.includes("no decide") || t.includes("no sabe") || t.includes("ns/nc");
+};
+
+export function puntos(d: DatosDashboard, idx: number[], base: Base = "efectiva"): Punto[] {
   const set = new Set(idx);
+  const denominador = new Map<number, number>();
+  if (base === "efectiva")
+    for (const r of d.resultados)
+      if (set.has(r.s) && r.v !== null && !esIndeciso(r)) denominador.set(r.s, (denominador.get(r.s) ?? 0) + r.v);
   const out: Punto[] = [];
   for (const r of d.resultados) {
     if (!set.has(r.s) || r.v === null) continue;
+    let v = r.v;
+    if (base === "efectiva") {
+      const den = denominador.get(r.s) ?? 0;
+      if (esIndeciso(r) || den <= 0) continue;
+      v = Math.round((r.v / den) * 1000) / 10;
+    }
     const esc = d.escenarios[r.s];
     const e = d.encuestas[esc.e];
     const sujeto = r.sent ? r.c || r.p : esc.sujeto === "candidato" ? r.c : r.p;
     if (!sujeto) continue;
-    out.push({ s: r.s, fecha: e.fecha, casa: e.encuestadora, sujeto, partido: r.p, v: r.v, sent: r.sent, sinFecha: e.sinFecha });
+    out.push({ s: r.s, fecha: e.fecha, casa: e.encuestadora, sujeto, partido: r.p, v, sent: r.sent, sinFecha: e.sinFecha });
   }
   return out;
 }
 
-export type Promedio = { sujeto: string; partido: string; promedio: number; n: number; sent: boolean };
+export type Promedio = { sujeto: string; partido: string; promedio: number; n: number; casas: number; sent: boolean };
 
+// Promedio equilibrado por casa: primero se promedia cada encuestadora y luego se promedian las
+// casas entre sí, para que una casa que publica cada semana no pese más que una que publica al mes.
 export function promedios(ps: Punto[]): Promedio[] {
-  const acc = new Map<string, { suma: number; n: number; sent: boolean; partidos: Map<string, number> }>();
+  const acc = new Map<string, { casas: Map<string, number[]>; n: number; sent: boolean; partidos: Map<string, number> }>();
   for (const p of ps) {
-    const a = acc.get(p.sujeto) ?? { suma: 0, n: 0, sent: p.sent, partidos: new Map() };
-    a.suma += p.v;
+    const a = acc.get(p.sujeto) ?? { casas: new Map(), n: 0, sent: p.sent, partidos: new Map() };
+    a.casas.set(p.casa, [...(a.casas.get(p.casa) ?? []), p.v]);
     a.n += 1;
     if (p.partido) a.partidos.set(p.partido, (a.partidos.get(p.partido) ?? 0) + 1);
     acc.set(p.sujeto, a);
   }
+  const media = (xs: number[]) => xs.reduce((x, y) => x + y, 0) / xs.length;
   return [...acc.entries()]
     .map(([sujeto, a]) => ({
       sujeto,
       partido: [...a.partidos.entries()].sort((x, y) => y[1] - x[1])[0]?.[0] ?? "",
-      promedio: Math.round((a.suma / a.n) * 10) / 10,
+      promedio: Math.round(media([...a.casas.values()].map(media)) * 10) / 10,
       n: a.n,
+      casas: a.casas.size,
       sent: a.sent,
     }))
     .sort((x, y) => Number(x.sent) - Number(y.sent) || y.promedio - x.promedio);
@@ -155,9 +182,9 @@ export function ultimaPorCasa(todos: Punto[], sujetos: string[]) {
 // Comparación por bloque: en careos se toma el partido del candidato y una coalición cuenta para
 // el partido que la encabeza. Si un escenario trae al partido y a su coalición, se toma un solo
 // valor (el mayor) para no contar doble.
-export function puntosPorBloque(d: DatosDashboard, idx: number[]): Punto[] {
+export function puntosPorBloque(d: DatosDashboard, idx: number[], base: Base = "efectiva"): Punto[] {
   const porEsc = new Map<string, Punto>();
-  for (const p of puntos(d, idx)) {
+  for (const p of puntos(d, idx, base)) {
     const b = p.sent ? p.sujeto : bloque(p.partido);
     if (!b) continue;
     const k = `${p.s}|${b}`;

@@ -20,6 +20,7 @@ const TIPOS_TEXTO: Record<Tipo, string> = {
   Multipartidista: "Por partido",
   Careos: "Careos",
   Interna: "Internas",
+  Aspirante: "Un aspirante",
   Otro: "Otros",
 };
 
@@ -38,6 +39,7 @@ export default function DashboardApp({ datos }: { datos: DatosDashboard }) {
   const [casas, setCasas] = useState<string[]>([]);
   const [meses, setMeses] = useState<string[]>([]);
   const [sujetos, setSujetos] = useState<string[]>([]);
+  const [base, setBase] = useState<C.Base>("efectiva");
 
   const modulo: Modulo = pestana === "ALC" ? "ALC" : "GUB";
 
@@ -72,12 +74,14 @@ export default function DashboardApp({ datos }: { datos: DatosDashboard }) {
   );
   const tipos = useMemo(() => C.tiposDisponibles(datos, ubIdx), [datos, ubIdx]);
   const tipo: Tipo | "" = tipoElegido && tipos.includes(tipoElegido) ? tipoElegido : (tipos[0] ?? "");
-  const internas = useMemo(() => C.internasDisponibles(datos, ubIdx), [datos, ubIdx]);
-  const interna = tipo === "Interna" ? (internas.includes(internaElegida) ? internaElegida : (internas[0] ?? "")) : "";
+  const conPartido = tipo === "Interna" || tipo === "Aspirante";
+  const internas = useMemo(() => C.internasDisponibles(datos, ubIdx, tipo), [datos, ubIdx, tipo]);
+  const interna = conPartido ? (internas.includes(internaElegida) ? internaElegida : (internas[0] ?? "")) : "";
 
   const tipoIdx = useMemo(() => C.porTipo(datos, ubIdx, { tipo, interna }), [datos, ubIdx, tipo, interna]);
   const porBloque = tipo === "Multipartidista";
-  const leerPuntos = (idx: number[]) => (porBloque ? C.puntosPorBloque(datos, idx) : C.puntos(datos, idx));
+  const leerPuntos = (idx: number[]) =>
+    porBloque ? C.puntosPorBloque(datos, idx, base) : C.puntos(datos, idx, base);
 
   const casasOpciones = useMemo(
     () => contarPor(tipoIdx.map((i) => datos.encuestas[datos.escenarios[i].e].encuestadora)),
@@ -89,7 +93,7 @@ export default function DashboardApp({ datos }: { datos: DatosDashboard }) {
   );
   const finIdx = useMemo(() => C.porCasaYMes(datos, tipoIdx, { casas, meses }), [datos, tipoIdx, casas, meses]);
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const ps = useMemo(() => leerPuntos(finIdx), [datos, finIdx, porBloque]);
+  const ps = useMemo(() => leerPuntos(finIdx), [datos, finIdx, porBloque, base]);
   const proms = useMemo(() => C.promedios(ps), [ps]);
 
   // El color de cada candidato se fija antes de filtrar por casa o mes, para que no cambie al filtrar.
@@ -97,11 +101,11 @@ export default function DashboardApp({ datos }: { datos: DatosDashboard }) {
     const base = C.promedios(leerPuntos(tipoIdx)).filter((p) => !p.sent);
     return new Map(base.map((p, i) => [p.sujeto, i]));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [datos, tipoIdx, porBloque]);
+  }, [datos, tipoIdx, porBloque, base]);
 
   const colorear: Colorear = (sujeto, partido, sent) => {
     if (sent) return GRIS_SENTINELA;
-    if (tipo === "Interna") {
+    if (tipo === "Interna" || tipo === "Aspirante") {
       const r = rangoEstable.get(sujeto);
       return r !== undefined && r < CATEGORICA.length ? CATEGORICA[r] : "#78776f";
     }
@@ -131,7 +135,7 @@ export default function DashboardApp({ datos }: { datos: DatosDashboard }) {
   const lideresMun = useMemo(() => C.lideresPorUbicacion(datos, "ALC", estado), [datos, estado]);
   const ubicacionTexto = modulo === "GUB" ? estado : `${municipio}, ${estado || datos.encuestas.find((e) => e.municipio === municipio)?.estado}`;
 
-  const que = tipo === "Interna" ? `interna de ${interna}` : tipo === "Careos" ? "careos" : "preferencia por partido";
+  const que = tipo === "Interna" ? `interna de ${interna}` : tipo === "Aspirante" ? `aspirantes de ${interna} medidos solos` : tipo === "Careos" ? "careos" : "preferencia por partido";
   const subjetoTexto = porBloque ? "partido" : "candidato";
 
   return (
@@ -201,9 +205,9 @@ export default function DashboardApp({ datos }: { datos: DatosDashboard }) {
                 }}
               />
             )}
-            {listo && tipo === "Interna" && (
+            {listo && conPartido && (
               <Selector
-                etiqueta="Partido de la interna"
+                etiqueta="Partido"
                 valor={interna}
                 opciones={internas.map((p) => ({ valor: p, texto: p }))}
                 onCambio={(v) => {
@@ -226,6 +230,15 @@ export default function DashboardApp({ datos }: { datos: DatosDashboard }) {
                   seleccion={meses.filter((m) => mesesOpciones.includes(m))}
                   opciones={mesesOpciones.map((m) => ({ valor: m, texto: C.nombreMes(m) }))}
                   onCambio={setMeses}
+                />
+                <Segmentos<C.Base>
+                  etiqueta="Base de los porcentajes"
+                  valor={base}
+                  opciones={[
+                    { valor: "efectiva", texto: "Comparable" },
+                    { valor: "publicada", texto: "Como la publica cada casa" },
+                  ]}
+                  onCambio={setBase}
                 />
                 <MultiSelector
                   etiqueta={porBloque ? "Partidos" : "Candidatos"}
@@ -277,7 +290,10 @@ export default function DashboardApp({ datos }: { datos: DatosDashboard }) {
                 <section className="db-tarjeta">
                   <h2>Promedio por {subjetoTexto}</h2>
                   <p className="db-tarjeta-sub">
-                    {ubicacionTexto} · {que} · promedio simple de todas las mediciones filtradas
+                    {ubicacionTexto} · {que} · promedio de casas (cada encuestadora pesa igual)
+                    {base === "efectiva"
+                      ? "; porcentaje entre quienes eligen una opción (sin “ninguno” ni “no sabe”), para comparar casas que publican sobre bases distintas"
+                      : "; cifras tal como las publicó cada casa"}
                     {porBloque ? "; cada coalición cuenta para el partido que la encabeza" : ""}
                   </p>
                   <BarrasPromedio datos={promsVisibles} colorear={colorear} />

@@ -1,5 +1,7 @@
 export type Modulo = "GUB" | "ALC";
-export type Tipo = "Multipartidista" | "Interna" | "Careos" | "Otro";
+// "Aspirante": medición de un solo aspirante contra "otro" o "no sabe" (¿quiere que X sea el
+// candidato?). No es una interna con varios aspirantes y no se promedia con ellas.
+export type Tipo = "Multipartidista" | "Interna" | "Aspirante" | "Careos" | "Otro";
 
 export type EncuestaMeta = {
   id: string;
