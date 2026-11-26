@@ -16,12 +16,7 @@ export default async function DashboardPage() {
   return (
     <div className="contenedor" style={{ maxWidth: 1280 }}>
       <div className="encabezado-dashboard">
-        <div>
-          <h1 style={{ margin: 0 }}>Monitoreo de Encuestas</h1>
-          <p style={{ margin: "2px 0 0", color: "var(--text-muted)", fontSize: "0.9rem" }}>
-            {datos.encuestas.length.toLocaleString("es-MX")} encuestas en Supabase
-          </p>
-        </div>
+        <h1 style={{ margin: 0 }}>Monitoreo de Encuestas</h1>
         <Link href="/" className="btn-secundario">
           ← Escanear
         </Link>
