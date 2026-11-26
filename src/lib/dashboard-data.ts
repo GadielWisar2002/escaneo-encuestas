@@ -12,6 +12,7 @@ import {
   municipioYEstado,
   partidoCanon,
   porcentajes,
+  SENTINELAS,
   tipoCanon,
 } from "./dashboard-normalize";
 
@@ -46,7 +47,7 @@ async function leerTodo(): Promise<Fila[]> {
 
 // Server-only: usa la service_role key, nunca se expone al navegador.
 export async function cargarDatosDashboard(): Promise<DatosDashboard> {
-  const filas = await leerTodo();
+  const filas = juntarCapturasPartidas(await leerTodo());
 
   const encuestas: EncuestaMeta[] = [];
   const escenarios: Escenario[] = [];
@@ -91,7 +92,8 @@ export async function cargarDatosDashboard(): Promise<DatosDashboard> {
       estado = estadoCanon(r.ubicacion || (iEntidad >= 0 ? datos[0][iEntidad] : "")) || "Nuevo León";
     } else {
       const ub = municipioYEstado(r.ubicacion ?? "", iEstado >= 0 ? datos[0][iEstado] ?? "" : "");
-      estado = ub.estado;
+      // La pestaña "Alcaldes" nació para Nuevo León: sin otra pista, el estado es Nuevo León.
+      estado = ub.estado === "Sin estado" && r.destino === "ALCALDES" ? "Nuevo León" : ub.estado;
       municipio = ub.municipio;
     }
     const { fecha, aprox, sinFecha } = fechaCanon(r.fecha ?? "", iMes >= 0 ? datos[0][iMes] ?? "" : "", r.creado_en);
@@ -114,26 +116,8 @@ export async function cargarDatosDashboard(): Promise<DatosDashboard> {
       sheetLink: r.sheet_link,
     });
 
-    const grupos = new Map<string, number[]>();
-    datos.forEach((f, i) => {
-      const k = [iTipo >= 0 ? f[iTipo] : "", iEscP >= 0 ? f[iEscP] : "", iEscC >= 0 ? f[iEscC] : ""].join("|");
-      const g = grupos.get(k) ?? [];
-      g.push(i);
-      grupos.set(k, g);
-    });
-    // En capturas viejas cada partido trae su propio "Escenario Partido" (Morena, PAN, …), así que
-    // una sola medición queda partida en grupos de una fila. Esas filas sueltas del mismo tipo se
-    // juntan en un solo escenario.
-    const sueltas = new Map<string, number[]>();
-    for (const [k, g] of grupos) {
-      const tipoG = tipoCanon(iTipo >= 0 ? datos[g[0]][iTipo] ?? "" : "");
-      if (g.length === 1 && tipoG !== "Interna") {
-        const ks = `${tipoG}|${iEscC >= 0 ? datos[g[0]][iEscC] ?? "" : ""}`;
-        sueltas.set(ks, [...(sueltas.get(ks) ?? []), ...g]);
-        grupos.delete(k);
-      }
-    }
-    for (const [ks, g] of sueltas) grupos.set(`suelta:${ks}`, g);
+    const firmas = new Set<string>();
+    const grupos = segmentarEscenarios(datos, { iTipo, iEscP, iEscC, iPart, iCand });
 
     for (const indices of grupos.values()) {
       const f0 = datos[indices[0]];
@@ -141,12 +125,31 @@ export async function cargarDatosDashboard(): Promise<DatosDashboard> {
       // Las proporciones (0.76 en vez de 76%) se detectan por escenario: una misma encuesta puede
       // traer un escenario en porcentaje y otro en proporción.
       const pctsEsc = porcentajes(indices.map((i) => (iPct >= 0 ? datos[i][iPct] : "")));
+      const crudoCand = (i: number) => (iCand >= 0 ? datos[i][iCand] ?? "" : "").trim();
+      const crudoEscC = (i: number) => (iEscC >= 0 ? datos[i][iEscC] ?? "" : "").trim();
+      // Capturas donde el nombre real quedó en "Escenario Candidato" (uno por fila) y la columna
+      // "Candidato" viene vacía o repite el mismo nombre en todas las filas.
+      const escCPorFila =
+        tipo !== "Interna" &&
+        indices.length >= 3 &&
+        indices.every((i) => !/,|\sy\s/.test(crudoEscC(i))) &&
+        new Set(indices.map(crudoEscC).filter(Boolean)).size >= indices.length - 1 &&
+        new Set(indices.map(crudoCand).filter(Boolean)).size <= 1;
       let filasEsc = indices.map((i, j) => {
-        const p = partidoCanon(iPart >= 0 ? datos[i][iPart] ?? "" : "");
-        const cc = aliasCandidato(candidatoCanon(iCand >= 0 ? datos[i][iCand] ?? "" : ""));
+        let p = partidoCanon(iPart >= 0 ? datos[i][iPart] ?? "" : "");
+        let cc = aliasCandidato(candidatoCanon(escCPorFila ? crudoEscC(i) : crudoCand(i)));
+        // Un partido escrito en la columna de candidato ("PAN", "MC", "Ninguno").
+        if (cc && !p && partidoDeFila("", cc, iEscP >= 0 ? datos[i][iEscP] ?? "" : "")) {
+          p = partidoDeFila("", cc, iEscP >= 0 ? datos[i][iEscP] ?? "" : "");
+          cc = "";
+        }
+        if (/^candidato$/i.test(cc)) cc = ""; // "Candidato" genérico sin nombre
         const c = cc ? formaCandidato.get(clave(cc)) ?? cc : "";
         return { p, c, v: pctsEsc[j], sent: esSentinela(p, c) };
       });
+      // Fuera de las internas, el mismo candidato (o partido) en varias filas del escenario se suma:
+      // en un careo Clara Luz por Morena, PVEM y PT es una sola candidatura con la suma de los tres.
+      if (tipo !== "Interna") filasEsc = sumarRepetidos(filasEsc);
       // Una fila con 100% dentro de un escenario con más aspirantes es un error de captura (otra
       // medición pegada en el mismo bloque): se descarta para no inflar ni sumar 200%.
       if (tipo === "Interna" && filasEsc.filter((x) => !x.sent).length > 2)
@@ -162,8 +165,13 @@ export async function cargarDatosDashboard(): Promise<DatosDashboard> {
       // y "Careos" uno solo de partidos: se clasifica por lo que de verdad mide.
       if (tipo === "Multipartidista" && sujeto === "candidato") tipo = "Careos";
       else if (tipo === "Careos" && sujeto === "partido") tipo = "Multipartidista";
+      // Tipo ilegible ("agosto 2026"): se clasifica por lo que mide.
+      else if (tipo === "Otro" && reales.length >= 2) tipo = sujeto === "candidato" ? "Careos" : "Multipartidista";
+      // Un careo o una medición por partido con una sola opción no compara nada: si es un candidato
+      // se trata como medición de un aspirante; si no, queda fuera de las gráficas (tipo "Otro").
+      if ((tipo === "Careos" || tipo === "Multipartidista") && reales.length < 2) tipo = reales[0]?.c ? "Aspirante" : "Otro";
 
-      let partidoInterna = "";
+      let partidoInterna = tipo === "Aspirante" ? bloque(reales[0]?.p ?? "") : "";
       if (tipo === "Interna") {
         partidoInterna = partidoCanon(iEscP >= 0 ? f0[iEscP] ?? "" : "");
         const conteo = new Map<string, number>();
@@ -193,6 +201,11 @@ export async function cargarDatosDashboard(): Promise<DatosDashboard> {
         }
       }
 
+      // Una misma medición capturada dos veces dentro de la encuesta se cuenta una sola vez.
+      const firma = `${tipo}|${filasEsc.map((x) => `${x.c}:${x.p}:${x.v}`).sort().join(";")}`;
+      if (firmas.has(firma)) continue;
+      firmas.add(firma);
+
       const s = escenarios.length;
       escenarios.push({
         e,
@@ -211,8 +224,117 @@ export async function cargarDatosDashboard(): Promise<DatosDashboard> {
 
   unificarNombres(encuestas, escenarios, resultados);
   completarPartidoInterna(encuestas, escenarios, resultados);
+  corregirPartidoEnCareos(encuestas, escenarios, resultados);
   return { encuestas, escenarios, resultados };
 }
+
+const PARTIDOS_CONOCIDOS = new Set(["Morena", "PAN", "PRI", "PRD", "MC", "PT", "PVEM", "Morena-PT-PVEM", "PAN-PRI", "PAN-PRI-PRD"]);
+
+// Partido de una fila: la columna de partido, o la de candidato cuando ahí viene un partido
+// (un partido conocido, o el mismo que dice el "Escenario Partido").
+function partidoDeFila(partido: string, candidato: string, escenarioPartido: string): string {
+  const p = partidoCanon(partido);
+  if (p) return p;
+  const c = partidoCanon(candidato);
+  if (c && (PARTIDOS_CONOCIDOS.has(c) || SENTINELAS.includes(c) || c === partidoCanon(escenarioPartido))) return c;
+  return "";
+}
+
+type Cols = { iTipo: number; iEscP: number; iEscC: number; iPart: number; iCand: number };
+
+// Arma los escenarios de una encuesta. Las internas se agrupan por partido y lista de aspirantes.
+// En el resto, si cada fila trae como "Escenario Partido" su propio partido (capturas viejas o
+// varios careos seguidos), ese campo no sirve para agrupar: los escenarios se separan en orden,
+// empezando uno nuevo cuando se repite un partido que ya apareció en el escenario en curso.
+function segmentarEscenarios(datos: string[][], k: Cols): number[][] {
+  const val = (i: number, j: number) => (j >= 0 ? datos[i][j] ?? "" : "").trim();
+  const porTipo = new Map<string, number[]>();
+  datos.forEach((_, i) => {
+    const t = tipoCanon(val(i, k.iTipo));
+    porTipo.set(t, [...(porTipo.get(t) ?? []), i]);
+  });
+  const grupos: number[][] = [];
+  for (const [tipo, filas] of porTipo) {
+    const filaPorFila =
+      tipo !== "Interna" &&
+      filas.filter((i) => {
+        const esc = partidoCanon(val(i, k.iEscP));
+        const propio = partidoDeFila(val(i, k.iPart), val(i, k.iCand), val(i, k.iEscP));
+        return !esc || esc === propio || propio.split("-").includes(esc) || esc.split("-").includes(propio);
+      }).length >=
+        filas.length * 0.8;
+    if (!filaPorFila) {
+      const m = new Map<string, number[]>();
+      for (const i of filas) {
+        const key = `${val(i, k.iEscP)}|${val(i, k.iEscC)}`;
+        m.set(key, [...(m.get(key) ?? []), i]);
+      }
+      grupos.push(...m.values());
+      continue;
+    }
+    let actual: number[] = [];
+    let vistos = new Set<string>();
+    for (const i of filas) {
+      const p = partidoDeFila(val(i, k.iPart), val(i, k.iCand), val(i, k.iEscP)) || val(i, k.iPart);
+      if (vistos.has(p) && actual.length) {
+        grupos.push(actual);
+        actual = [];
+        vistos = new Set();
+      }
+      actual.push(i);
+      vistos.add(p);
+    }
+    if (actual.length) grupos.push(actual);
+  }
+  return grupos;
+}
+
+function sumarRepetidos<T extends { p: string; c: string; v: number | null; sent: boolean }>(filas: T[]): T[] {
+  const conCandidato = filas.filter((x) => !x.sent && x.c).length > filas.filter((x) => !x.sent).length / 2;
+  const out = new Map<string, T>();
+  for (const x of filas) {
+    const key = x.sent ? `s:${x.c || x.p}` : conCandidato && x.c ? `c:${x.c}` : `p:${x.p}`;
+    const previo = out.get(key);
+    if (!previo) out.set(key, { ...x });
+    else {
+      previo.v = previo.v === null && x.v === null ? null : Math.round(((previo.v ?? 0) + (x.v ?? 0)) * 10) / 10;
+      if (x.p && previo.p !== x.p) previo.p = partidoCanon(`${previo.p}-${x.p}`) || previo.p;
+    }
+  }
+  return [...out.values()];
+}
+
+// Una interna capturada fila por fila en "encuestas" separadas con fechas consecutivas (misma casa,
+// mismo lugar, misma lista de aspirantes) se vuelve a juntar en una sola encuesta.
+function juntarCapturasPartidas(filas: Fila[]): Fila[] {
+  const out: Fila[] = [];
+  const abiertas = new Map<string, { fila: Fila; dia: number }>();
+  const ordenadas = [...filas].sort((a, b) => a.creado_en.localeCompare(b.creado_en));
+  for (const r of ordenadas) {
+    const cols = (r.columnas ?? []).map((c) => c.trim());
+    const iEscC = cols.indexOf("Escenario Candidato");
+    const iTipo = cols.findIndex((c) => c === "Sub-tipo" || c === "Tipo de escenario");
+    const unaFila = (r.filas ?? []).length === 1;
+    const lista = iEscC >= 0 && unaFila ? (r.filas[0][iEscC] ?? "").trim() : "";
+    if (!unaFila || !/,/.test(lista)) {
+      out.push(r);
+      continue;
+    }
+    const key = [r.destino, r.ubicacion ?? "", encuestadoraCanon(r.encuestadora ?? ""), tipoCanon(r.filas[0][iTipo] ?? ""), clave(lista)].join("|");
+    const dia = Date.parse(fechaCanon(r.fecha ?? "", "", r.creado_en).fecha) / 86400000;
+    const abierta = abiertas.get(key);
+    if (abierta && Math.abs(dia - abierta.dia) <= 7 && sameCols(abierta.fila.columnas, r.columnas)) {
+      abierta.fila.filas = [...abierta.fila.filas, ...r.filas];
+      abierta.dia = dia;
+      continue;
+    }
+    const copia = { ...r, filas: [...r.filas] };
+    abiertas.set(key, { fila: copia, dia });
+    out.push(copia);
+  }
+  return out;
+}
+const sameCols = (a: string[], b: string[]) => a.length === b.length && a.every((c, i) => c.trim() === (b[i] ?? "").trim());
 
 function ajustarA100<T extends { p: string; c: string; v: number | null; sent: boolean }>(filas: T[]): T[] {
   const suma = filas.reduce((a, x) => a + (x.v ?? 0), 0);
@@ -223,6 +345,53 @@ function ajustarA100<T extends { p: string; c: string; v: number | null; sent: b
   if (nIndecisos === 1 && resto <= 100)
     return filas.map((x) => (indeciso(x) ? { ...x, v: Math.round((100 - resto) * 10) / 10 } : x));
   return filas.map((x) => (x.v === null ? x : { ...x, v: Math.round((x.v / suma) * 1000) / 10 }));
+}
+
+// Bando de un partido o coalición: Morena con PT y PVEM, PAN con PRI y PRD, MC, o el propio partido.
+const campo = (p: string) => {
+  const t = p.split("-");
+  if (t.some((x) => ["Morena", "PT", "PVEM"].includes(x))) return "Morena y aliados";
+  if (t.some((x) => ["PAN", "PRI", "PRD"].includes(x))) return "PAN-PRI-PRD";
+  return p;
+};
+
+// En careos, si un candidato aparece con un partido distinto al que le dan casi todas las demás
+// mediciones del mismo lugar (p. ej. Adrián de la Garza "por Morena"), es un error de captura y se
+// usa su partido habitual. Requiere al menos 3 mediciones y 75% de coincidencia.
+function corregirPartidoEnCareos(encuestas: EncuestaMeta[], escenarios: Escenario[], resultados: Resultado[]) {
+  const lugar = (s: number) => {
+    const e = encuestas[escenarios[s].e];
+    return `${e.modulo}|${e.estado}|${e.municipio}`;
+  };
+  const conteo = new Map<string, Map<string, number>>();
+  for (const r of resultados) {
+    if (r.sent || !r.c || !r.p || escenarios[r.s].tipo !== "Careos") continue;
+    const k = `${lugar(r.s)}|${r.c}`;
+    const m = conteo.get(k) ?? new Map<string, number>();
+    m.set(campo(r.p), (m.get(campo(r.p)) ?? 0) + 1);
+    conteo.set(k, m);
+  }
+  const habitual = new Map<string, string>();
+  for (const [k, m] of conteo) {
+    const total = [...m.values()].reduce((a, b) => a + b, 0);
+    const [b, n] = [...m].sort((x, y) => y[1] - x[1])[0];
+    if (total >= 3 && n / total >= 0.75) habitual.set(k, b);
+  }
+  // Partido completo más usado para ese bloque (p. ej. "PAN-PRI" para PAN).
+  const formaDe = new Map<string, Map<string, number>>();
+  for (const r of resultados) {
+    if (r.sent || !r.c || !r.p || escenarios[r.s].tipo !== "Careos") continue;
+    const k = `${lugar(r.s)}|${r.c}|${campo(r.p)}`;
+    const m = formaDe.get(k) ?? new Map<string, number>();
+    m.set(r.p, (m.get(r.p) ?? 0) + 1);
+    formaDe.set(k, m);
+  }
+  for (const r of resultados) {
+    if (r.sent || !r.c || !r.p || escenarios[r.s].tipo !== "Careos") continue;
+    const k = `${lugar(r.s)}|${r.c}`;
+    const b = habitual.get(k);
+    if (b && campo(r.p) !== b) r.p = [...(formaDe.get(`${k}|${b}`) ?? new Map([[b, 1]]))].sort((x, y) => y[1] - x[1])[0][0];
+  }
 }
 
 // Internas sin partido en la captura: se deduce de otras internas del mismo lugar donde aparecen

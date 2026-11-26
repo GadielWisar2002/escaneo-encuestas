@@ -16,6 +16,8 @@ const ALIAS: Record<string, string> = {
   "Anylú Hernández Sepúlveda": "Anylú Bendición Hernández Sepúlveda",
   'Hernán "El Grillo" Sada': 'Hernán "El Grillo" Sada Garza',
   "Hernán Sada Garza": 'Hernán "El Grillo" Sada Garza',
+  "Hernán Gerardo Sada Garza": 'Hernán "El Grillo" Sada Garza',
+  "Hernán El Grillo Sada": 'Hernán "El Grillo" Sada Garza',
   "Marco Armando Fernández Samaniego": "José Armando Fernández Samaniego",
   "Armando Samaniego": "José Armando Fernández Samaniego",
 };
