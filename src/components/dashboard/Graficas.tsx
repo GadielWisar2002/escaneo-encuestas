@@ -37,13 +37,29 @@ function Leyenda({ items }: { items: { nombre: string; color: string }[] }) {
 
 // ---------- Promedio por candidato / partido ----------
 
-export function BarrasPromedio({ datos, colorear }: { datos: Promedio[]; colorear: Colorear }) {
+export function BarrasPromedio({
+  datos,
+  colorear,
+  onElegir,
+}: {
+  datos: Promedio[];
+  colorear: Colorear;
+  onElegir?: (sujeto: string) => void;
+}) {
   if (!datos.length) return <p className="db-vacio">No hay mediciones con estos filtros.</p>;
   const filas = datos.slice(0, 14);
   const alto = filas.length * 34 + 24;
+  const conDetalle = filas.some((p) => p.detalle);
   return (
     <ResponsiveContainer width="100%" height={alto}>
-      <BarChart data={filas} layout="vertical" margin={{ top: 4, right: 56, bottom: 4, left: 4 }} barCategoryGap={8}>
+      <BarChart
+        data={filas}
+        layout="vertical"
+        margin={{ top: 4, right: conDetalle ? 260 : 56, bottom: 4, left: 4 }}
+        barCategoryGap={8}
+        onClick={onElegir ? (e) => e?.activeLabel && onElegir(String(e.activeLabel)) : undefined}
+        style={onElegir ? { cursor: "pointer" } : undefined}
+      >
         <XAxis type="number" hide domain={[0, (max: number) => Math.max(10, Math.ceil(max * 1.05))]} />
         <YAxis
           type="category"
@@ -62,6 +78,7 @@ export function BarrasPromedio({ datos, colorear }: { datos: Promedio[]; colorea
             return (
               <div className="db-tooltip">
                 <div className="db-tooltip-titulo">{p.sujeto}</div>
+                {p.detalle && <div>{p.detalle}</div>}
                 {p.partido && p.partido !== p.sujeto && <div className="db-tenue">{p.partido}</div>}
                 <div>
                   Promedio <strong>{pct(p.promedio)}</strong>
@@ -77,7 +94,21 @@ export function BarrasPromedio({ datos, colorear }: { datos: Promedio[]; colorea
           {filas.map((p) => (
             <Cell key={p.sujeto} fill={colorear(p.sujeto, p.partido, p.sent)} />
           ))}
-          <LabelList dataKey="promedio" position="right" formatter={(v) => pct(Number(v))} fill={TINTA} fontSize={12} />
+          <LabelList
+            dataKey="promedio"
+            position="right"
+            content={(props) => {
+              const { x, y, width, height, index } = props as { x?: number; y?: number; width?: number; height?: number; index?: number };
+              const p = filas[index ?? 0];
+              if (!p) return null;
+              return (
+                <text x={Number(x) + Number(width) + 6} y={Number(y) + Number(height) / 2 + 4} fontSize={12} fill={TINTA}>
+                  <tspan fontWeight={600}>{pct(p.promedio)}</tspan>
+                  {p.detalle && <tspan fill={TINTA_TENUE}>{`  ${p.detalle.length > 44 ? p.detalle.slice(0, 43) + "…" : p.detalle}`}</tspan>}
+                </text>
+              );
+            }}
+          />
         </Bar>
       </BarChart>
     </ResponsiveContainer>

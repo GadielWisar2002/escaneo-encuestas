@@ -108,7 +108,15 @@ export function puntos(d: DatosDashboard, idx: number[], base: Base = "efectiva"
   return out;
 }
 
-export type Promedio = { sujeto: string; partido: string; promedio: number; n: number; casas: number; sent: boolean };
+export type Promedio = {
+  sujeto: string;
+  partido: string;
+  promedio: number;
+  n: number;
+  casas: number;
+  sent: boolean;
+  detalle?: string; // texto extra junto al valor (p. ej. el puntero de una interna)
+};
 
 // Promedio equilibrado por casa: primero se promedia cada encuestadora y luego se promedian las
 // casas entre sí, para que una casa que publica cada semana no pese más que una que publica al mes.
@@ -132,6 +140,23 @@ export function promedios(ps: Punto[]): Promedio[] {
       sent: a.sent,
     }))
     .sort((x, y) => Number(x.sent) - Number(y.sent) || y.promedio - x.promedio);
+}
+
+// Una barra por partido: el aspirante que encabeza la interna de cada partido en ese lugar, con su
+// promedio. Respeta los filtros de encuestadora, mes y base.
+export function punteroPorPartido(
+  d: DatosDashboard,
+  ubIdx: number[],
+  f: Pick<Filtros, "casas" | "meses">,
+  base: Base,
+): Promedio[] {
+  const out: Promedio[] = [];
+  for (const partido of internasDisponibles(d, ubIdx, "Interna")) {
+    const idx = porCasaYMes(d, porTipo(d, ubIdx, { tipo: "Interna", interna: partido }), f);
+    const top = promedios(puntos(d, idx, base)).find((p) => !p.sent);
+    if (top) out.push({ ...top, sujeto: partido, partido, detalle: `${top.sujeto} · ${top.casas} ${top.casas === 1 ? "casa" : "casas"}` });
+  }
+  return out.sort((a, b) => b.promedio - a.promedio);
 }
 
 export function principales(proms: Promedio[], max: number): string[] {

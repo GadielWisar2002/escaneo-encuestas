@@ -428,7 +428,7 @@ function completarPartidoInterna(encuestas: EncuestaMeta[], escenarios: Escenari
 const DIMINUTIVOS: Record<string, string> = {
   tono: "antonio", tony: "antonio", paty: "patricia", pati: "patricia", ma: "maria", pancho: "francisco",
   paco: "francisco", pepe: "jose", chuy: "jesus", lalo: "eduardo", memo: "guillermo", nacho: "ignacio",
-  quique: "enrique", lupe: "guadalupe",
+  quique: "enrique", lupe: "guadalupe", mike: "miguel",
 };
 // "de la Torre", "de Hoyos": las partículas no cuentan como palabras del nombre.
 const PARTICULAS = new Set(["de", "la", "del", "los", "las", "y", "el"]);

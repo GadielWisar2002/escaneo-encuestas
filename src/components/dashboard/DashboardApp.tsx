@@ -118,6 +118,10 @@ export default function DashboardApp({ datos }: { datos: DatosDashboard }) {
   const series = seleccion.length ? seleccion : C.principales(proms, tipo === "Interna" ? 6 : 5);
   const datosTendencia = useMemo(() => C.tendencia(ps, series), [ps, series.join("|")]); // eslint-disable-line react-hooks/exhaustive-deps
   const datosCasas = useMemo(() => C.ultimaPorCasa(ps, series.slice(0, 5)), [ps, series.join("|")]); // eslint-disable-line react-hooks/exhaustive-deps
+  const punteros = useMemo(
+    () => (tipo === "Interna" ? C.punteroPorPartido(datos, ubIdx, { casas, meses }, base) : []),
+    [datos, ubIdx, tipo, casas, meses, base],
+  );
   const promsVisibles = seleccion.length ? proms.filter((p) => p.sent || seleccion.includes(p.sujeto)) : proms;
 
   // ---------- Indicadores ----------
@@ -285,6 +289,24 @@ export default function DashboardApp({ datos }: { datos: DatosDashboard }) {
                   nota={reales[1] ? `vs ${reales[1].sujeto}` : undefined}
                 />
               </div>
+
+              {tipo === "Interna" && punteros.length > 1 && (
+                <section className="db-tarjeta" style={{ marginBottom: 16 }}>
+                  <h2>Promedio por partido</h2>
+                  <p className="db-tarjeta-sub">
+                    {ubicacionTexto} · cada barra es la interna de un partido con el promedio de quien la encabeza (nombre a
+                    la derecha); clic para ver esa interna
+                  </p>
+                  <BarrasPromedio
+                    datos={punteros}
+                    colorear={(_s, partido) => colorPartido(partido)}
+                    onElegir={(p) => {
+                      setInterna(p);
+                      setSujetos([]);
+                    }}
+                  />
+                </section>
+              )}
 
               <div className="db-rejilla dos">
                 <section className="db-tarjeta">
