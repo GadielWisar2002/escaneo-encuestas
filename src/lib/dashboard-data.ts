@@ -151,6 +151,10 @@ export async function cargarDatosDashboard(): Promise<DatosDashboard> {
       // medición pegada en el mismo bloque): se descarta para no inflar ni sumar 200%.
       if (tipo === "Interna" && filasEsc.filter((x) => !x.sent).length > 2)
         filasEsc = filasEsc.filter((x) => x.sent || x.v === null || x.v < 99.5);
+      // Una interna que suma más de 105% trae un dato colado de otra medición (p. ej. el "Ninguno"
+      // de otra casa). Si tiene "Ninguno"/"No sabe", ese renglón se recalcula como lo que falta
+      // para llegar a 100%; si no, todo se reescala a 100%.
+      if (tipo === "Interna") filasEsc = ajustarA100(filasEsc);
       const reales = filasEsc.filter((x) => !x.sent);
       const conCandidato = reales.filter((x) => x.c).length;
       const sujeto: Escenario["sujeto"] = conCandidato > reales.length / 2 ? "candidato" : "partido";
@@ -208,6 +212,17 @@ export async function cargarDatosDashboard(): Promise<DatosDashboard> {
   unificarNombres(encuestas, escenarios, resultados);
   completarPartidoInterna(encuestas, escenarios, resultados);
   return { encuestas, escenarios, resultados };
+}
+
+function ajustarA100<T extends { p: string; c: string; v: number | null; sent: boolean }>(filas: T[]): T[] {
+  const suma = filas.reduce((a, x) => a + (x.v ?? 0), 0);
+  if (suma <= 105) return filas;
+  const indeciso = (x: T) => x.sent && /ningun|no decide|no sabe/i.test(`${x.p} ${x.c}`);
+  const resto = filas.filter((x) => !indeciso(x)).reduce((a, x) => a + (x.v ?? 0), 0);
+  const nIndecisos = filas.filter(indeciso).length;
+  if (nIndecisos === 1 && resto <= 100)
+    return filas.map((x) => (indeciso(x) ? { ...x, v: Math.round((100 - resto) * 10) / 10 } : x));
+  return filas.map((x) => (x.v === null ? x : { ...x, v: Math.round((x.v / suma) * 1000) / 10 }));
 }
 
 // Internas sin partido en la captura: se deduce de otras internas del mismo lugar donde aparecen
