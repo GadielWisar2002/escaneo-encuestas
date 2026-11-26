@@ -1,90 +1,98 @@
 "use client";
 
 import "leaflet/dist/leaflet.css";
-import { CircleMarker, MapContainer, TileLayer, Tooltip } from "react-leaflet";
+import { useEffect, useMemo, useState } from "react";
+import type { Feature, FeatureCollection } from "geojson";
+import type { Layer, PathOptions } from "leaflet";
+import { GeoJSON, MapContainer, TileLayer } from "react-leaflet";
 import type { Lider } from "@/lib/dashboard-calc";
 import { nombreMes } from "@/lib/dashboard-calc";
 import { colorPartido } from "@/lib/colores";
+import { estadoCanon } from "@/lib/dashboard-normalize";
 
-const COORDENADAS: Record<string, [number, number]> = {
-  Aguascalientes: [21.88, -102.3],
-  "Baja California": [30.84, -116.6],
-  "Baja California Sur": [26.04, -111.67],
-  Campeche: [19.83, -90.53],
-  Chiapas: [16.75, -93.11],
-  Chihuahua: [28.63, -106.07],
-  "Ciudad de México": [19.43, -99.13],
-  Coahuila: [27.06, -101.7],
-  Colima: [19.24, -103.72],
-  Durango: [24.02, -104.66],
-  Guanajuato: [21.02, -101.26],
-  Guerrero: [17.55, -100.36],
-  Hidalgo: [20.12, -98.74],
-  Jalisco: [20.66, -103.35],
-  "Estado de México": [19.36, -99.89],
-  Michoacán: [19.57, -101.97],
-  Morelos: [18.68, -99.1],
-  Nayarit: [21.75, -104.85],
-  "Nuevo León": [25.69, -100.32],
-  Oaxaca: [17.07, -96.73],
-  Puebla: [18.87, -98.2],
-  Querétaro: [20.59, -100.39],
-  "Quintana Roo": [19.18, -88.5],
-  "San Luis Potosí": [22.16, -100.98],
-  Sinaloa: [24.81, -107.39],
-  Sonora: [29.07, -110.96],
-  Tabasco: [17.99, -92.92],
-  Tamaulipas: [24.27, -98.83],
-  Tlaxcala: [19.31, -98.24],
-  Veracruz: [19.18, -96.16],
-  Yucatán: [20.97, -89.62],
-  Zacatecas: [22.77, -102.56],
-};
+// Contornos de los 32 estados (GeoJSON público, servido desde /public).
+const URL_ESTADOS = "/geo/mexico-estados.json";
+const SIN_DATOS = "#e3e7ed";
+
+const escapar = (s: string) => s.replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`);
+
+function textoTooltip(estado: string, l: Lider | undefined) {
+  if (!l) return `<strong>${escapar(estado)}</strong><br/>Sin encuestas`;
+  const partes = [`<strong>${escapar(estado)}</strong>`];
+  if (l.lider) {
+    partes.push(`Va arriba: <strong>${escapar(l.lider)}</strong> ${l.liderPct.toFixed(1)}%`);
+    if (l.segundo) partes.push(`Segundo: ${escapar(l.segundo)} ${l.segundoPct.toFixed(1)}%`);
+    partes.push(`${nombreMes(l.mes)} · ${l.casas} ${l.casas === 1 ? "casa" : "casas"}`);
+  } else partes.push("Solo hay internas");
+  partes.push(`${l.encuestas} encuestas · clic para ver detalle`);
+  return partes.join("<br/>");
+}
 
 export default function Mapa({ lideres, onElegir }: { lideres: Lider[]; onElegir: (estado: string) => void }) {
-  const max = Math.max(1, ...lideres.map((l) => l.encuestas));
+  const [geo, setGeo] = useState<FeatureCollection | null>(null);
+  const [error, setError] = useState(false);
+  useEffect(() => {
+    fetch(URL_ESTADOS)
+      .then((r) => (r.ok ? r.json() : Promise.reject(r.status)))
+      .then(setGeo)
+      .catch(() => setError(true));
+  }, []);
+
+  const porEstado = useMemo(() => new Map(lideres.map((l) => [l.ubicacion, l])), [lideres]);
+  const nombre = (f?: Feature) => estadoCanon(String(f?.properties?.name ?? ""));
+
+  const estilo = (f?: Feature): PathOptions => {
+    const l = porEstado.get(nombre(f));
+    return {
+      fillColor: l?.lider ? colorPartido(l.lider) : SIN_DATOS,
+      fillOpacity: l?.lider ? 0.85 : 0.6,
+      color: "#ffffff",
+      weight: 1.5,
+    };
+  };
+
+  const alCrear = (f: Feature, capa: Layer) => {
+    const estado = nombre(f);
+    const l = porEstado.get(estado);
+    capa.bindTooltip(textoTooltip(estado, l), { sticky: true, direction: "top" });
+    if (!l) return;
+    capa.on({
+      click: () => onElegir(estado),
+      mouseover: (e) => e.target.setStyle({ weight: 3, color: "#1a2030" }),
+      mouseout: (e) => e.target.setStyle({ weight: 1.5, color: "#ffffff" }),
+    });
+  };
+
   return (
     <div className="db-mapa">
-      <MapContainer bounds={[[15.5, -116.5], [32.0, -87.5]]} zoomSnap={0.25} minZoom={4} scrollWheelZoom={false} style={{ height: "100%", width: "100%" }}>
-        <TileLayer
-          url="https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}"
-          attribution="Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ"
-          maxZoom={16}
-        />
-        {lideres
-          .filter((l) => COORDENADAS[l.ubicacion])
-          .map((l) => (
-            <CircleMarker
-              key={l.ubicacion}
-              center={COORDENADAS[l.ubicacion]}
-              radius={9 + 13 * Math.sqrt(l.encuestas / max)}
-              pathOptions={{ color: "#fff", weight: 2, fillColor: colorPartido(l.lider), fillOpacity: 0.9 }}
-              eventHandlers={{ click: () => onElegir(l.ubicacion) }}
-            >
-              <Tooltip direction="top" offset={[0, -6]}>
-                <strong>{l.ubicacion}</strong>
-                <br />
-                {l.lider ? (
-                  <>
-                    Va arriba: <strong>{l.lider}</strong> {l.liderPct.toFixed(1)}%
-                    {l.segundo && (
-                      <>
-                        <br />
-                        Segundo: {l.segundo} {l.segundoPct.toFixed(1)}%
-                      </>
-                    )}
-                    <br />
-                    {nombreMes(l.mes)} · {l.casas} {l.casas === 1 ? "casa" : "casas"}
-                  </>
-                ) : (
-                  "Solo hay internas"
-                )}
-                <br />
-                {l.encuestas} encuestas · clic para ver detalle
-              </Tooltip>
-            </CircleMarker>
-          ))}
-      </MapContainer>
+      {error ? (
+        <p className="db-vacio">No se pudo cargar el mapa de estados.</p>
+      ) : (
+        <MapContainer
+          bounds={[
+            [15.5, -116.5],
+            [32.0, -87.5],
+          ]}
+          zoomSnap={0.25}
+          minZoom={4}
+          scrollWheelZoom={false}
+          style={{ height: "100%", width: "100%", background: "#f3f5f8" }}
+        >
+          <TileLayer
+            url="https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}"
+            attribution="Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ"
+            maxZoom={16}
+          />
+          {geo && (
+            <GeoJSON
+              key={lideres.map((l) => `${l.ubicacion}:${l.lider}`).join("|")}
+              data={geo}
+              style={estilo}
+              onEachFeature={alCrear}
+            />
+          )}
+        </MapContainer>
+      )}
     </div>
   );
 }

@@ -351,7 +351,7 @@ function Panorama({ lideres, onElegir }: { lideres: C.Lider[]; onElegir: (estado
         <section className="db-tarjeta">
           <h2>Quién va arriba en cada estado</h2>
           <p className="db-tarjeta-sub">
-            Partido con mayor promedio en el mes más reciente con mediciones generales; el tamaño indica cuántas encuestas hay
+            Cada estado se pinta del partido con mayor promedio en el mes más reciente con mediciones generales; en gris, sin encuestas
           </p>
           <div className="db-leyenda">
             {partidos.map((p) => (
@@ -360,6 +360,10 @@ function Panorama({ lideres, onElegir }: { lideres: C.Lider[]; onElegir: (estado
                 {p}
               </span>
             ))}
+            <span>
+              <i className="db-punto" style={{ background: "#e3e7ed" }} />
+              Sin encuestas
+            </span>
           </div>
           <Mapa lideres={lideres} onElegir={onElegir} />
         </section>
